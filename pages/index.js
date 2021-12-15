@@ -1,24 +1,25 @@
-import MeetupList from "../components/meetups/MeetupList";
-import {Fragment} from "react";
-import Head       from "next/head";
-import dynamic    from "next/dynamic";
-
-const botnp = dynamic(
-    () => {
-        return import('popper.js/dist/popper.js')
-    },
-    {ssr: false}
-);
-
-const bots  = dynamic(
-    () => {
-        return import('bootstrap/dist/js/bootstrap.js')
-    },
-    {ssr: false}
-);
+import {
+    Fragment,
+    useEffect
+}                         from "react";
+import Head              from "next/head";
+import {retrieveMeetups} from "../store/modules/meetups/actions";
+import {
+    useDispatch,
+    useSelector
+}                         from "react-redux";
+import MeetupList         from "../components/meetups/Retrieve/MeetupList";
+import MeetupsDataService from "../services/meetups.service";
 
 
 function HomePage(props) {
+    const dispatch = useDispatch()
+    const meetups  = useSelector((state => state.meetupsReducer.meetups))
+    console.log(meetups)
+    useEffect(() => {
+                  dispatch(retrieveMeetups())
+              },
+              []);
     return (
         <Fragment>
 
@@ -26,8 +27,8 @@ function HomePage(props) {
                 <title>Meetings</title>
                 <meta name="title"
                       content="Meetings"/>
-                <meta name="viewport" content="initial-scale=1, width=device-width" />
-
+                <meta name="viewport"
+                      content="initial-scale=1, width=device-width"/>
                 <meta name="description"
                       content="This is a meetings site"/>
                 <meta name="keywords"
@@ -38,9 +39,7 @@ function HomePage(props) {
                       content="text/html; charset=utf-8"/>
                 <meta name="language"
                       content="English"/>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-                        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-                        crossOrigin="anonymous"/>
+
                 {/*<!-- Primary Meta Tags -->
                  <title>Meta Tags — Preview, Edit and Generate</title>
                  <meta name="title" content="Meta Tags — Preview, Edit and Generate">
@@ -60,7 +59,7 @@ function HomePage(props) {
                  <meta property="twitter:description" content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!">
                  <meta property="twitter:image" content="https://metatags.io/assets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png">*/}
             </Head>
-            <MeetupList meetups={props.meetups}/>
+            <MeetupList meetups={meetups}/>
         </Fragment>)
 }
 
@@ -79,19 +78,14 @@ function HomePage(props) {
 //if you have data frequently changes
 export async function getServerSideProps() {
     //fetch
-    let res
-    const response = await fetch('http://localhost:1337/meetups',
-                                 {
-                                     method : 'GET',
-                                     headers: {'Content-Type': 'application/json'}
-                                 })
+    let res;
+    await MeetupsDataService.retrieveMeetups()
+                            .then(e => {
+                                res = e.data.data
+                                console.log(res.data)
+                            })
 
-    if (!response.ok) {
-        console.log('warning')
-    }
-    else {
-        res = await response.json()
-    }
+
     return {
         props: {
             meetups: res
