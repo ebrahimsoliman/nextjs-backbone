@@ -2,14 +2,15 @@ import {
     Fragment,
     useEffect
 }                         from "react";
-import Head              from "next/head";
-import {retrieveMeetups} from "../store/modules/meetups/actions";
+import Head               from "next/head";
+import {retrieveMeetups}  from "../store/modules/meetups/actions";
 import {
     useDispatch,
     useSelector
 }                         from "react-redux";
 import MeetupList         from "../components/meetups/Retrieve/MeetupList";
 import MeetupsDataService from "../services/meetups.service";
+import {autologin}        from "../store/modules/authentication/actions";
 
 
 function HomePage(props) {

@@ -47,6 +47,7 @@ function meetupReducer(meetupstate = initialState,
 
         case UPDATE_MEETUP:
             return {
+                meetups: payload,
                 ...meetupstate
             };
 

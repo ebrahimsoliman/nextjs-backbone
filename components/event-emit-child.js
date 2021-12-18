@@ -1,39 +1,46 @@
 import React from 'react';
+import {
+    Button,
+    Dropdown,
+    Menu
+}            from "antd";
+
+const menu = (
+    <Menu>
+        <Menu.Item>
+            <a target="_blank"
+               rel="noopener noreferrer"
+               href="https://www.antgroup.com">
+                1st menu item
+            </a>
+        </Menu.Item>
+        <Menu.Item>
+            <a target="_blank"
+               rel="noopener noreferrer"
+               href="https://www.aliyun.com">
+                2nd menu item
+            </a>
+        </Menu.Item>
+        <Menu.Item>
+            <a target="_blank"
+               rel="noopener noreferrer"
+               href="https://www.luohanacademy.com">
+                3rd menu item
+            </a>
+        </Menu.Item>
+    </Menu>
+);
 
 //props used to parent to child data communication between components
 function EventEmitChild(props) {
     let d = 'data from child'
     props.onEventEmit(d)
     return (
-        <div>
-            <div className="dropdown">
-                <button className="btn btn-secondary dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                    Dropdown button
-                </button>
-                <ul className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1">
-                    <li>
-                        <a className="dropdown-item"
-                           href="#">Action
-                        </a>
-                    </li>
-                    <li>
-                        <a className="dropdown-item"
-                           href="#">Another action
-                        </a>
-                    </li>
-                    <li>
-                        <a className="dropdown-item"
-                           href="#">Something else here
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        <Dropdown overlay={menu}
+                  placement="bottomLeft"
+                  arrow>
+            <Button>bottomLeft</Button>
+        </Dropdown>
     );
 }
 

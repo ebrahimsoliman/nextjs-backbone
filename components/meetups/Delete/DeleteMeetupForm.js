@@ -2,11 +2,15 @@ import {
     Button,
     Form,
     Input
-}                    from 'antd';
-import {useSelector} from "react-redux";
-import {useEffect}   from "react";
+}                     from 'antd';
+import {
+    useDispatch,
+    useSelector
+}                     from "react-redux";
+import {useEffect}    from "react";
+import {deleteMeetup} from "../../../store/modules/meetups/actions";
 
-function DeleteMeetupForm(props) {
+function DeleteMeetupForm() {
 
     const meetup = useSelector((state => state.meetupsReducer.meetup))
 
@@ -15,17 +19,9 @@ function DeleteMeetupForm(props) {
         onFill()
 
     })
-
-    function submitHandler(values) {
-        const meetupData = {
-            title      : values.title,
-            image      : values.image,
-            address    : values.address,
-            description: values.description,
-        };
-
-        props.onDeleteMeetup(meetup.id,
-                             meetupData);
+    const dispatch = useDispatch()
+    function submitHandler() {
+            dispatch(deleteMeetup(meetup.id))
     }
 
     const tailLayout = {

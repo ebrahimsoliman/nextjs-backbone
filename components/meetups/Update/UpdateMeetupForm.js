@@ -2,13 +2,19 @@ import {
     Button,
     Form,
     Input
-}                    from 'antd';
-import {useSelector} from "react-redux";
-import {useEffect}   from "react";
+}                     from 'antd';
+import {
+    useDispatch,
+    useSelector
+}                     from "react-redux";
+import {useEffect}    from "react";
+import {useRouter}    from "next/router";
+import {updateMeetup} from "../../../store/modules/meetups/actions";
 
 function UpdateMeetupForm(props) {
-
-    const meetup = useSelector((state => state.meetupsReducer.meetup))
+    const router   = useRouter()
+    const dispatch = useDispatch()
+    const meetup   = useSelector((state => state.meetupsReducer.meetup))
 
     const [form] = Form.useForm();
     useEffect(() => {
@@ -23,9 +29,8 @@ function UpdateMeetupForm(props) {
             address    : values.address,
             description: values.description,
         };
-
-        props.onUpdateMeetup(meetup.id,
-                             meetupData);
+        dispatch(updateMeetup(meetup.id,
+                              meetupData))
     }
 
     const tailLayout = {

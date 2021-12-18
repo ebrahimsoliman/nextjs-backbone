@@ -3,7 +3,7 @@ import Binding from "../../components/bind/binding";
 
 function Bind() {
     return (
-        <div>
+        <div><h1>Events and Data binding</h1>
             <Binding/>
         </div>
     );

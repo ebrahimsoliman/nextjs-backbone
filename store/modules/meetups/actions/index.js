@@ -60,16 +60,17 @@ export const updateMeetup = (id,
                                                         id,
                                                         data
                                                     });
+        const ret = MeetupsDataService.retrieveMeetups()
+        dispatch(retrieveMeetups())
         dispatch({
                      type   : UPDATE_MEETUP,
-                     payload: data,
+                     payload: ret.data,
                  });
         notification['success']({
                                     message    : 'Meetup Updated Successfully',
                                     description: `Meetup has been Updated successfully`,
                                     duration   : 0
                                 });
-        dispatch(retrieveMeetups())
 
         return Promise.resolve(res.data);
 

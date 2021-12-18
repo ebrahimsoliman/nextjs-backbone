@@ -5,9 +5,7 @@ import {
 }                 from "antd";
 
 function MeetupList(props) {
-
     return (
-
         <Row gutter={[
             24,
             24

@@ -13,7 +13,7 @@ function Lists() {
         'dark',
     ]
     return (
-        <div>
+        <div><h1>Lists</h1>
             {arr.map((variant,
                       idx) => (
                 <Alert key={idx}

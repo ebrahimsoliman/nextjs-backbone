@@ -1,13 +1,14 @@
+import React from 'react';
 import {
     Button,
     Form,
     Input
-}                     from 'antd';
-import {useRouter}    from "next/router";
-import {useDispatch}  from "react-redux";
-import {createMeetup} from "../../../store/modules/meetups/actions";
+} from "antd";
+import {useRouter} from "next/router";
+import {useDispatch} from "react-redux";
+import {createMeetup} from "../../store/modules/meetups/actions";
 
-function NewMeetupForm(props) {
+function Sendmailconfirmation() {
     const [form]   = Form.useForm();
     const router   = useRouter()
     const dispatch = useDispatch()
@@ -115,4 +116,4 @@ function NewMeetupForm(props) {
     );
 }
 
-export default NewMeetupForm;
+export default Sendmailconfirmation;

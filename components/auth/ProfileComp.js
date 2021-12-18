@@ -1,7 +1,6 @@
 import React from 'react';
 
-
-function Index() {
+function ProfileComp() {
     return (
         <div>
 
@@ -9,4 +8,4 @@ function Index() {
     );
 }
 
-export default Index;
+export default ProfileComp;
