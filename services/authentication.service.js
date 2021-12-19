@@ -21,6 +21,15 @@ class AuthenticationDataService {
                          data)
     };
 
+    me(header) {
+        return http.get('users/me/',
+                        {
+                            headers: {
+                                'Authorization': `Bearer ${header}`
+                            }
+                        })
+    };
+
 }
 
 export default new AuthenticationDataService();

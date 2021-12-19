@@ -2,9 +2,8 @@ import '../styles/globals.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
-import {Layout} from 'antd';
+import {Layout}      from 'antd';
 import 'antd/dist/antd.css';
-
 import {Provider}    from 'react-redux';
 import store         from '../store/index';
 import NextNProgress from "nextjs-progressbar";
@@ -14,7 +13,6 @@ import FooterLay     from "../components/Layout/FooterLay";
 const {
           Content
       } = Layout;
-
 
 function MyApp({
                    Component,

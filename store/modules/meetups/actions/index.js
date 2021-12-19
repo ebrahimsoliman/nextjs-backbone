@@ -7,12 +7,17 @@ import {
 }                         from "./types";
 import MeetupsDataService from '../../../../services/meetups.service'
 import {notification}     from "antd";
+import socketIOClient     from "socket.io-client";
+
+const ios = socketIOClient(process.env.NEXT_PUBLIC_BACK_APP_URL)
 
 export const createMeetup = (data) => async (dispatch) => {
 
     let res;
     MeetupsDataService.createMeetup(data)
                       .then(resp => {
+                          ios.emit('meetupsChanged',
+                                   {})
                           res = resp
                           dispatch({
                                        type   : CREATE_MEETUP,
@@ -56,6 +61,8 @@ export const retrieveMeetups = () => async (dispatch) => {
 export const updateMeetup = (id,
                              data) => async (dispatch) => {
     try {
+        ios.emit('meetupsChanged',
+                 {})
         const res = MeetupsDataService.updateMeetup({
                                                         id,
                                                         data
@@ -94,6 +101,8 @@ export const deleteMeetup = (id) => async (dispatch) => {
                      type   : DELETE_MEETUP,
                      payload: {id},
                  });
+        ios.emit('meetupsChanged',
+                 {})
         notification['success']({
                                     message    : 'Meetup Deleted Successfully',
                                     description: `Meetup has been deleted successfully`,

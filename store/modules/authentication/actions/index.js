@@ -8,7 +8,7 @@ import {
 import AuthenticationDataService from '../../../../services/authentication.service'
 import {notification}            from "antd";
 
-export const login = (data) => async (dispatch) => {
+export const login          = (data) => async (dispatch) => {
     try {
         const res = await AuthenticationDataService.login(data);
         dispatch({
@@ -39,36 +39,6 @@ export const login = (data) => async (dispatch) => {
                               });
     }
 
-};
-
-export const logout = () => async (dispatch) => {
-    dispatch({
-                 type   : LOG_OUT,
-                 payload: {
-                     authState: null
-                 }
-             })
-
-};
-
-export const autologin      = () => async (dispatch) => {
-    if (typeof JSON.parse(localStorage.getItem('authState')) != 'undefined') {
-        dispatch({
-                     type   : AUTO_LOGIN,
-                     payload: {authState: JSON.parse(localStorage.getItem('authState'))}
-                 });
-        notification['success']({
-                                    message    : 'Welcome Back',
-                                    description: `Your Last Login Session Was Recovered`,
-                                    duration   : 0
-                                });
-    }
-    else {
-        dispatch({
-                     type   : LOG_OUT,
-                     payload: {authState: null}
-                 });
-    }
 };
 export const signUp         = (data) => async (dispatch) => {
     try {
@@ -149,4 +119,39 @@ export const resetPassword  = (data) => async (dispatch) => {
                               });
     }
 };
+export const logout         = () => async (dispatch) => {
+    dispatch({
+                 type   : LOG_OUT,
+                 payload: {
+                     authState: null
+                 }
+             })
+    localStorage.removeItem('authState')
 
+};
+export const autologin      = () => async (dispatch) => {
+
+    try {
+        const res = await AuthenticationDataService.me(JSON.parse(localStorage.getItem('authState')).jwt);
+        notification['success']({
+                                    message    : 'Welcome Back',
+                                    description: `Your Last Login Session Was Recovered`,
+                                    duration   : 0
+                                });
+        dispatch({
+                     type   : AUTO_LOGIN,
+                     payload: {authState: JSON.parse(localStorage.getItem('authState'))}
+                 });
+
+
+    }
+    catch (err) {
+        dispatch({
+                     type   : LOG_OUT,
+                     payload: {authState: null}
+                 });
+
+    }
+
+
+};
