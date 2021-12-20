@@ -3,7 +3,6 @@ import EventEmitChild    from "../../components/event-emit-child";
 
 //event emit used to child to parent data communication between components
 function EventEmit() {
-
     let [dt, setdt] = useState('state')
     const getData   = (data) => {
         setdt(data)

@@ -20,10 +20,10 @@ function MeetupList() {
             24
         ]}>
             {meetups.map((meetup) => (
-                <Col md={12} xs={24}
+                <Col md={12}
+                     xs={24}
                      key={meetup.id}
                      className="gutter-row"><MeetupItem
-
                     id={meetup.id}
                     image={meetup.attributes.image}
                     title={meetup.attributes.title}

@@ -19,7 +19,6 @@ function UpdateMeetupForm(props) {
     const [form] = Form.useForm();
     useEffect(() => {
         onFill()
-
     })
 
     function submitHandler(values) {
@@ -29,6 +28,7 @@ function UpdateMeetupForm(props) {
             address    : values.address,
             description: values.description,
         };
+
         dispatch(updateMeetup(meetup.id,
                               meetupData))
     }

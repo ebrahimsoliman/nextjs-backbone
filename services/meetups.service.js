@@ -1,6 +1,11 @@
 import http from "../http/http-common";
 
 class MeetupsDataService {
+
+    retrieveMeetups() {
+        return http.get('meetups/')
+    }
+
     createMeetup(data) {
         return http.post('meetups',
                          {data: data})
@@ -11,13 +16,10 @@ class MeetupsDataService {
                         {data: data.data})
     };
 
-    deleteMeetup(data) {
-        return http.delete('meetups/' + data)
+    deleteMeetup(id) {
+        return http.delete('meetups/' + id)
     }
 
-    retrieveMeetups() {
-        return http.get('meetups/')
-    }
 }
 
 export default new MeetupsDataService();

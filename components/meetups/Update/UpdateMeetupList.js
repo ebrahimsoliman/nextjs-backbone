@@ -21,6 +21,7 @@ import {
 function UpdateMeetupList(props) {
     const dispatch = useDispatch()
     const meetups  = useSelector((state => state.meetupsReducer.meetups))
+    const [selected, setSelected] = useState(0);
 
     function selects(index,
                      item) {
@@ -28,8 +29,6 @@ function UpdateMeetupList(props) {
         dispatch(selectMeetup(item))
     }
 
-    const [selected, setSelected] = useState(0);
-    console.log(selected)
     useEffect(() => {
                   dispatch(retrieveMeetups())
               },

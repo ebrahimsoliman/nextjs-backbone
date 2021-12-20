@@ -9,9 +9,11 @@ function Conditions() {
     }
 
     return (
-        <div><h1>Conditions</h1>
+        <div>
+            <h1>Conditions</h1>
             <Button onClick={f}>toggle</Button>
-            {show ? <p>shown</p> : ''}
+            {show ? <p>shown</p> : <p>hide</p>}
+           {/* {show && <p>shown</p>}*/}
 
         </div>
 

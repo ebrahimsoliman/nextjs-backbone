@@ -74,9 +74,9 @@ function SiderLay() {
                          title="Basics">
                     <Menu.Item key="6"><Link href="/basics/bind">Bind</Link></Menu.Item>
                     <Menu.Item key="7"><Link href="/basics/conditions">Conditions</Link></Menu.Item>
-                    <Menu.Item key="8"><Link href="/basics/event-emit">Events</Link></Menu.Item>
                     <Menu.Item key="9"><Link href="/basics/lists">Lists</Link></Menu.Item>
                     <Menu.Item key="10"><Link href="/basics/props">Props</Link></Menu.Item>
+                    <Menu.Item key="8"><Link href="/basics/event-emit">Events Emit</Link></Menu.Item>
                     <Menu.Item key="11"><Link href="/basics/styles">Styles</Link></Menu.Item>
                 </SubMenu>
                 <SubMenu key="meetups"
@@ -114,9 +114,8 @@ function SiderLay() {
 
                     <Menu.Item key="17"><Link href="/externals/carousels/swiper">Swiper</Link></Menu.Item>
                     <Menu.Item key="18"><Link href="externals/payments/stripe">Stripe</Link></Menu.Item>
-                    <Menu.Item key="18"><Link href="externals/zoom/">Zoom</Link></Menu.Item>
+                    <Menu.Item key="19"><Link href="externals/zoom/">Zoom</Link></Menu.Item>
                 </SubMenu>
-
             </Menu>
         </Sider>
     );

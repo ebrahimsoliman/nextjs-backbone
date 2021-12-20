@@ -1,7 +1,19 @@
-import React      from 'react';
-import MeetupList from "../../components/meetups/Retrieve/MeetupList";
+import React, {useEffect} from 'react';
+import MeetupList         from "../../components/meetups/Retrieve/MeetupList";
+import {
+    useDispatch,
+    useSelector
+}                         from "react-redux";
+import {retrieveMeetups}  from "../../store/modules/meetups/actions";
 
 function Index() {
+    const dispatch = useDispatch()
+    const meetups  = useSelector((state => state.meetupsReducer.meetups))
+    console.log(meetups)
+    useEffect(() => {
+                  dispatch(retrieveMeetups())
+              },
+              []);
     return (
         <div>
             <MeetupList/>

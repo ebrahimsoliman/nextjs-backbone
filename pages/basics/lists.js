@@ -12,13 +12,17 @@ function Lists() {
         'light',
         'dark',
     ]
+    
+
+
     return (
-        <div><h1>Lists</h1>
-            {arr.map((variant,
-                      idx) => (
-                <Alert key={idx}
-                       variant={variant}>
-                    This is a {variant} alert—check it out!
+        <div>
+            <h1>Lists</h1>
+            {arr.map((element,
+                      index) => (
+                <Alert key={index}
+                       variant={element}>
+                    This is a {element} alert—check it out!
                 </Alert>
             ))}
         </div>

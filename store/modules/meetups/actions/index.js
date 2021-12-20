@@ -11,40 +11,6 @@ import socketIOClient     from "socket.io-client";
 
 const ios = socketIOClient(process.env.NEXT_PUBLIC_BACK_APP_URL)
 
-export const createMeetup = (data) => async (dispatch) => {
-
-    let res;
-    MeetupsDataService.createMeetup(data)
-                      .then(resp => {
-                          ios.emit('meetupsChanged',
-                                   {})
-                          res = resp
-                          dispatch({
-                                       type   : CREATE_MEETUP,
-                                       payload: res.data
-                                   });
-
-                          notification['success']({
-                                                      message    : 'Meetup Created Successfully',
-                                                      description: `Meetup has been Created successfully`,
-                                                      duration   : 0
-                                                  });
-                          dispatch(retrieveMeetups())
-                          return Promise.resolve(res.data);
-                      })
-                      .catch(err => {
-                          console.log(err.message)
-                          notification['error']({
-                                                    message    : err.name,
-                                                    description: err.message,
-                                                    duration   : 0
-                                                });
-
-                      });
-
-
-};
-
 export const retrieveMeetups = () => async (dispatch) => {
     try {
         const res = await MeetupsDataService.retrieveMeetups();
@@ -58,6 +24,38 @@ export const retrieveMeetups = () => async (dispatch) => {
     }
 };
 
+export const createMeetup = (data) => async (dispatch) => {
+
+    let res;
+    MeetupsDataService.createMeetup(data)
+                      .then(resp => {
+                          ios.emit('meetupsChanged',
+                                   {})
+                          res = resp
+                          dispatch({
+                                       type   : CREATE_MEETUP,
+                                       payload: res.data
+                                   });
+                          dispatch(retrieveMeetups())
+                          notification['success']({
+                                                      message    : 'Meetup Created Successfully',
+                                                      description: `Meetup has been Created successfully`,
+                                                      duration   : 0
+                                                  });
+                      })
+                      .catch(err => {
+                          console.log(err.message)
+                          notification['error']({
+                                                    message    : err.response.data.error.details.errors[0].path[0],
+                                                    description: err.response.data.error.message,
+                                                    duration   : 0
+                                                });
+                      });
+
+
+};
+
+
 export const updateMeetup = (id,
                              data) => async (dispatch) => {
     try {
@@ -68,7 +66,6 @@ export const updateMeetup = (id,
                                                         data
                                                     });
         const ret = MeetupsDataService.retrieveMeetups()
-        dispatch(retrieveMeetups())
         dispatch({
                      type   : UPDATE_MEETUP,
                      payload: ret.data,
@@ -78,12 +75,14 @@ export const updateMeetup = (id,
                                     description: `Meetup has been Updated successfully`,
                                     duration   : 0
                                 });
-
-        return Promise.resolve(res.data);
-
     }
     catch (err) {
-        return Promise.reject(err);
+
+        notification['error']({
+                                  message    : err.response.data.error.details.errors[0].path[0],
+                                  description: err.response.data.error.message,
+                                  duration   : 0
+                              });
     }
 };
 
@@ -111,7 +110,11 @@ export const deleteMeetup = (id) => async (dispatch) => {
         dispatch(retrieveMeetups())
     }
     catch (err) {
-        console.log(err);
+        notification['error']({
+                                  message    : err.response.data.error.details.errors[0].path[0],
+                                  description: err.response.data.error.message,
+                                  duration   : 0
+                              });
     }
 };
 

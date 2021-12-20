@@ -8,18 +8,9 @@ import {useDispatch}  from "react-redux";
 import {createMeetup} from "../../../store/modules/meetups/actions";
 
 function NewMeetupForm(props) {
-    const [form]   = Form.useForm();
-    const router   = useRouter()
-    const dispatch = useDispatch()
-
-    function submitHandler(values) {
-        dispatch(createMeetup({
-                                  title      : values.title,
-                                  image      : values.image,
-                                  address    : values.address,
-                                  description: values.description,
-                              }))
-    }
+    const [form]     = Form.useForm();
+    const router     = useRouter()
+    const dispatch   = useDispatch()
     const tailLayout = {
         wrapperCol: {
             offset: 8,
@@ -38,10 +29,22 @@ function NewMeetupForm(props) {
                                  and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
                             });
     };
+
+
+    function submitHandler(values) {
+        dispatch(createMeetup({
+                                  title      : values.title,
+                                  image      : values.image,
+                                  address    : values.address,
+                                  description: values.description,
+                              }))
+    }
+
+
     return (
         <Form form={form}
               name="basic"
-              labelCol={{span: 4}}
+              labelCol={{span: 5}}
               wrapperCol={{span: 16}}
               initialValues={{remember: true}}
               onFinish={submitHandler}
@@ -51,31 +54,32 @@ function NewMeetupForm(props) {
                 name="title"
                 rules={[
                     {
-                        required: false,
+                        required: true,
                         message : 'Please input your username!'
                     }
                 ]}
             >
                 <Input/>
-            </Form.Item> <Form.Item
-            label="Meetup Image"
-            name="image"
-            rules={[
-                {
-                    required: true,
-                },
-                {
-                    type       : 'url',
-                    warningOnly: true,
-                },
-                {
-                    type: 'string',
-                    min : 6,
-                },
-            ]}
-        >
-            <Input/>
-        </Form.Item>
+            </Form.Item>
+            <Form.Item
+                label="Meetup Image"
+                name="image"
+                rules={[
+                    {
+                        required: true,
+                    },
+                    {
+                        type       : 'url',
+                        warningOnly: true,
+                    },
+                    {
+                        type: 'string',
+                        min : 6,
+                    },
+                ]}
+            >
+                <Input/>
+            </Form.Item>
             <Form.Item
                 label="address"
                 name="address"

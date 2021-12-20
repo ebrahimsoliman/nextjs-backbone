@@ -28,18 +28,19 @@ function meetupReducer(meetupstate = initialState,
           } = action;
 
     switch (type) {
-        case CREATE_MEETUP:
-            return {
-                ...meetupstate,
-            };
+
         case RETRIEVE_MEETUPS:
             return {
                 ...meetupstate,
                 meetups: payload
             };
 
-        case SELECT_MEETUP:
+        case CREATE_MEETUP:
+            return {
+                ...meetupstate,
+            };
 
+        case SELECT_MEETUP:
             return {
                 ...meetupstate,
                 meetup: payload
@@ -55,6 +56,7 @@ function meetupReducer(meetupstate = initialState,
             return {
                 ...meetupstate
             };
+
         default:
             return meetupstate;
     }

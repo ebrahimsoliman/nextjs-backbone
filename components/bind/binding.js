@@ -6,16 +6,20 @@ import {
 
 function Binding(props) {
     //use state to tell ui to re render whenever this value changes after event binding
+
     const [i, setI] = useState(1);
-    const [x, setX] = useState('5');
+    const [x, setX] = useState(20);
+    let q           = 5;
     let cls         = 'disabled';
 
     function increase() {
         setI(i + 1);
+
     }
 
     function change(eve) {
         setX(eve.target.value);
+
     }
 
     return (
@@ -27,9 +31,9 @@ function Binding(props) {
             <br/>
             {/*two binding*/}
             <p> Two Way Binding<Input type="text"
-                      value={x}
-                      onInput={change}/></p>
-            <p>{x}</p>
+                                      value={x}
+                                      onChange={change}/></p>
+            <p>{i} {'         '}{x}</p>
         </div>
     );
 }
