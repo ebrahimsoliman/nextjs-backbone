@@ -41,7 +41,7 @@ function UpdateMeetupList(props) {
         ]}>
             {meetups.map((meetup,
                           index) => (
-                <Col span={12}
+                <Col md={12} xs={24}
                      onClick={() => selects(index,
                                             meetup)}
                      className={`gutter-row banner ${selected === index ? "gutter-row update-active" : ""}`}

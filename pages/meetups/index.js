@@ -1,15 +1,14 @@
 import React      from 'react';
 import MeetupList from "../../components/meetups/Retrieve/MeetupList";
-import axios      from "axios";
 
-function Index(props) {
+function Index() {
     return (
         <div>
-            <MeetupList meetups={props.meetups}/>
+            <MeetupList/>
         </div>
     );
 }
-
+/*
 export async function getServerSideProps() {
     //fetch
     let res
@@ -20,13 +19,13 @@ export async function getServerSideProps() {
 
                })
                .catch((error) => {
-                  
+
                });
     return {
         props: {
             meetups: res
         },
     }
-}
+}*/
 
 export default Index;

@@ -112,8 +112,9 @@ function SiderLay() {
                          icon={<LogoutOutlined/>}
                          title="Externals">
 
-                    <Menu.Item key="17"><Link href="/externals/swiper">Swiper</Link></Menu.Item>
+                    <Menu.Item key="17"><Link href="/externals/carousels/swiper">Swiper</Link></Menu.Item>
                     <Menu.Item key="18"><Link href="externals/payments/stripe">Stripe</Link></Menu.Item>
+                    <Menu.Item key="18"><Link href="externals/zoom/">Zoom</Link></Menu.Item>
                 </SubMenu>
 
             </Menu>

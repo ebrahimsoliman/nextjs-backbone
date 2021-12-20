@@ -1,19 +1,29 @@
-import MeetupItem from './MeetupItem';
+import MeetupItem        from './MeetupItem';
 import {
     Col,
     Row
-}                 from "antd";
+}                        from "antd";
+import {
+    useDispatch,
+    useSelector
+}                        from "react-redux";
+import {retrieveMeetups} from "../../../store/modules/meetups/actions";
 
-function MeetupList(props) {
+function MeetupList() {
+    const dispatch = useDispatch()
+    dispatch(retrieveMeetups)
+    const meetups = useSelector((state => state.meetupsReducer.meetups))
+
     return (
         <Row gutter={[
             24,
             24
         ]}>
-            {props.meetups.map((meetup) => (
-                <Col span={12}
+            {meetups.map((meetup) => (
+                <Col md={12} xs={24}
+                     key={meetup.id}
                      className="gutter-row"><MeetupItem
-                    key={meetup.id}
+
                     id={meetup.id}
                     image={meetup.attributes.image}
                     title={meetup.attributes.title}
