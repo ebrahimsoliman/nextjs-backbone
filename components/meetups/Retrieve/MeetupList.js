@@ -11,16 +11,13 @@ import {
 import {
     useDispatch,
     useSelector
-}                     from "react-redux";
+}                        from "react-redux";
 import {
     useEffect,
     useState
-}                     from "react";
-import {
-    retrieveMeetups,
-    selectMeetup
-}                     from "../../../store/modules/meetups/actions";
-import {UserOutlined} from "@ant-design/icons";
+}                        from "react";
+import {retrieveMeetups} from "../../../store/modules/meetups/actions";
+import {UserOutlined}    from "@ant-design/icons";
 
 function UpdateMeetupList() {
     const dispatch                = useDispatch()
@@ -76,12 +73,12 @@ function UpdateMeetupList() {
 
     }
 
-    const onSearch                = value => {
+    const onSearch = value => {
 
         setLsearch(value)
         retr()
     }
-    const menu                    = (<Menu onClick={handleSortMenuClick}>
+    const menu     = (<Menu onClick={handleSortMenuClick}>
         <Menu.Item key="title"
                    icon={<UserOutlined/>}>
             Title
@@ -91,7 +88,7 @@ function UpdateMeetupList() {
             Address
         </Menu.Item>
     </Menu>);
-    const meetups                 = useSelector((state => state.meetupsReducer))
+    const meetups  = useSelector((state => state.meetupsReducer))
     return (
         <Row gutter={[
             24,
@@ -107,7 +104,8 @@ function UpdateMeetupList() {
                 </Dropdown.Button>
             </Col>
             {meetups.meetups.map((meetup) => (
-                <Col md={12} key={meetup.id}
+                <Col md={12}
+                     key={meetup.id}
                      xs={24}
                 ><MeetupItem
                     id={meetup.id}

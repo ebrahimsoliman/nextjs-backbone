@@ -33,7 +33,7 @@ function Zoom() {
                       let meetingSDKElement = document.getElementById('meetingSDKElement');
 
                       client.init({
-                                      debug      : true,
+                                      debug      : false,
                                       zoomAppRoot: meetingSDKElement,
                                       language   : 'en-US',
                                       customize  : {
@@ -54,7 +54,7 @@ function Zoom() {
                                                       text     : 'Custom Button',
                                                       className: 'CustomButton',
                                                       onClick  : () => {
-                                                          console.log('custom button');
+                                                         /* console.log('custom button');*/
                                                       }
                                                   }
                                               ]

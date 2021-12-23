@@ -119,8 +119,9 @@ function UpdateMeetupList() {
                      onClick={() => selects(index,
                                             meetup)}
                      className={`gutter-row banner ${selected === index ? "gutter-row delete-active" : ""}`}
+                     key={meetup.id}
                 ><MeetupItem
-                    key={meetup.id}
+
                     id={meetup.id}
                     image={meetup.attributes.image}
                     title={meetup.attributes.title}

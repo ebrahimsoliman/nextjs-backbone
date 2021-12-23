@@ -12,15 +12,13 @@ import {Menu} from 'antd'
 import {
     useDispatch,
     useSelector
-}                        from "react-redux";
+}             from "react-redux";
 
-import {
-    autologin,
-    logout
-}                        from "../../store/modules/authentication/actions";
+import {logout} from "../../store/modules/authentication/actions";
+
 function Menus() {
-    const user     = useSelector((state => state.authenticationReducer.user));
-
+    const user      = useSelector((state => state.authenticationReducer.user));
+    const dispatch  = useDispatch()
     const {SubMenu} = Menu;
 
     return (
