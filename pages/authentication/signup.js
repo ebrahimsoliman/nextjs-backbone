@@ -13,7 +13,7 @@ class SignupPage
 }
 
 SignupPage.getInitialProps = async (ctx) => {
-    console.log(ctx)
+
     return {stars: 'json.stargazers_count'}
 }
 

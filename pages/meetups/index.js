@@ -9,7 +9,7 @@ import {retrieveMeetups}  from "../../store/modules/meetups/actions";
 function Index() {
     const dispatch = useDispatch()
     const meetups  = useSelector((state => state.meetupsReducer.meetups))
-    console.log(meetups)
+
     useEffect(() => {
                   dispatch(retrieveMeetups())
               },

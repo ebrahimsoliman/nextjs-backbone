@@ -34,14 +34,12 @@ export async function getStaticProps(context) {
     const meetupid = context.params.meetupid;
     await axios.get(process.env.NEXT_PUBLIC_BACK_APP_URL + '/api/meetups/' + meetupid)
                .then(response => {
-
                    res = response.data.data
                    ids = res.map(item => {
                        return {params: {meetupid: item.id.toString()}}
                    })
                })
                .catch((error) => {
-
                });
 
     return {

@@ -15,7 +15,7 @@ import MeetupsDataService from "../services/meetups.service";
 function HomePage(props) {
     const dispatch = useDispatch()
     const meetups  = useSelector((state => state.meetupsReducer.meetups))
-    console.log(meetups)
+
     useEffect(() => {
                   dispatch(retrieveMeetups())
               },

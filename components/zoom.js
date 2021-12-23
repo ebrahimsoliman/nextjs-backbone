@@ -20,11 +20,11 @@ function Zoom() {
                               apiKey       : 'f0r8F-zARRyMbNTJGUxNkg',
                               userEmail    : "ebrahimahmed97090@gmail.com",
                               passWord     : '0000',
-                              success      : (success) => {
-                                  console.log(success)
+                              success      : () => {
+
                               },
-                              error        : (error) => {
-                                  console.log(error)
+                              error        : () => {
+
                               }
                           }
                       )
