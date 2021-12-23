@@ -1,5 +1,5 @@
-import MeetupDetail from "../../../components/meetups/Detail/MeetupDetail";
 import axios        from "axios";
+import MeetupDetail from "../../../components/meetups/Detail/MeetupDetail";
 
 function meetUpItemid(props) {
     return <MeetupDetail image={props.meetupData.attributes.image}
@@ -11,7 +11,7 @@ function meetUpItemid(props) {
 export async function getStaticPaths() {
     let res;
     let ids
-    await axios.get('http://localhost:1337/api/meetups')
+    await axios.get(process.env.NEXT_PUBLIC_BACK_APP_URL + '/api/meetups')
                .then(response => {
                    res = response.data.data
                    ids = res.map(item => {
@@ -32,7 +32,7 @@ export async function getStaticProps(context) {
     let res
     let ids
     const meetupid = context.params.meetupid;
-    await axios.get('http://localhost:1337/api/meetups/' + meetupid)
+    await axios.get(process.env.NEXT_PUBLIC_BACK_APP_URL + '/api/meetups/' + meetupid)
                .then(response => {
 
                    res = response.data.data

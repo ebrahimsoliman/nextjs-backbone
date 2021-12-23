@@ -5,13 +5,15 @@ import {
 }              from "swiper/react";
 import {Image} from "antd";
 import SwiperCore, {
+    Autoplay,
     EffectCube,
     Pagination
 }              from 'swiper';
 
 SwiperCore.use([
                    EffectCube,
-                   Pagination
+                   Pagination,
+                   Autoplay
                ]);
 
 function SwiperSlider() {
@@ -20,6 +22,7 @@ function SwiperSlider() {
             <Swiper
                 effect={'cube'}
                 grabCursor={true}
+                autoplay={true}
                 cubeEffect={{
                     "shadow"      : true,
                     "slideShadows": true,
@@ -28,10 +31,14 @@ function SwiperSlider() {
                 }}
                 pagination={true}
                 className="mySwiper">
-                <SwiperSlide><Image src={'https://source.unsplash.com/user/c_v_r/1600x900'}/></SwiperSlide>
-                <SwiperSlide><Image src={'https://source.unsplash.com/user/c_v_r/1600x900'}/></SwiperSlide>
-                <SwiperSlide><Image src={'https://source.unsplash.com/user/c_v_r/1600x900'}/></SwiperSlide>
-                <SwiperSlide><Image src={'https://source.unsplash.com/user/c_v_r/1600x900'}/></SwiperSlide>
+                <SwiperSlide><Image preview={false}
+                                    src={'https://source.unsplash.com/user/c_v_r/1600x900'}/></SwiperSlide>
+                <SwiperSlide><Image preview={false}
+                                    src={'https://source.unsplash.com/user/c_v_r/1600x900'}/></SwiperSlide>
+                <SwiperSlide><Image preview={false}
+                                    src={'https://source.unsplash.com/user/c_v_r/1600x900'}/></SwiperSlide>
+                <SwiperSlide><Image preview={false}
+                                    src={'https://source.unsplash.com/user/c_v_r/1600x900'}/></SwiperSlide>
             </Swiper>
         </div>
     );

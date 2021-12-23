@@ -18,8 +18,6 @@ import {
 function ResetPassword() {
     const user   = useSelector((state => state.authenticationReducer.user))
     const router = useRouter()
-
-
     useEffect(() => {
         if (user) {
             router.push('/')

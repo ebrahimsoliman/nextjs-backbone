@@ -7,6 +7,14 @@ import {
 } from "./actions/types";
 
 const initialState = {
+    meta   : {
+        pagination: {
+            page     : 0,
+            pageSize : 0,
+            pageCount: 0,
+            total    : 0
+        }
+    },
     meetups: [],
     meetup : {
         id        : null,
@@ -32,7 +40,8 @@ function meetupReducer(meetupstate = initialState,
         case RETRIEVE_MEETUPS:
             return {
                 ...meetupstate,
-                meetups: payload
+                meetups: payload.meetups,
+                meta   : payload.meta
             };
 
         case CREATE_MEETUP:

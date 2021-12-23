@@ -14,7 +14,6 @@ function Binding(props) {
 
     function increase() {
         setI(i + 1);
-
     }
 
     function change(eve) {

@@ -12,7 +12,7 @@ function Strip() {
     const [clientSecret, setClientSecret] = useState("");
     useEffect(() => {
                   // Create PaymentIntent as soon as the page loads
-                  fetch("http://localhost:1337/api/reserve",
+                  fetch(process.env.NEXT_PUBLIC_BACK_APP_URL + "/api/reserve",
                         {
                             method : "POST",
                             headers: {"Content-Type": "application/json"},

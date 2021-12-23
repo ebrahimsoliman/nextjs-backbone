@@ -17,17 +17,14 @@ import {
 
 function Logincom() {
     const user = useSelector((state => state.authenticationReducer.user))
-
+    const [form]   = Form.useForm();
+    const router   = useRouter()
+    const dispatch = useDispatch()
     useEffect(() => {
         if (user) {
             router.push('/')
         }
     })
-
-    const [form]   = Form.useForm();
-    const router   = useRouter()
-    const dispatch = useDispatch()
-
     function submitHandler(values) {
         dispatch(login({
                            identifier: values.email,

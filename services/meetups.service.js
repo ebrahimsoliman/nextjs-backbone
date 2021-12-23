@@ -2,8 +2,8 @@ import http from "../http/http-common";
 
 class MeetupsDataService {
 
-    retrieveMeetups() {
-        return http.get('meetups/')
+    retrieveMeetups(params) {
+        return http.get(`meetups/?${params}`)
     }
 
     createMeetup(data) {

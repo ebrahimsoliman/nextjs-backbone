@@ -33,7 +33,6 @@ const menu = (
 
 //props used to parent to child data communication between components
 function EventEmitChild(props) {
-
     props.onEventEmit('data from child')
     return (
         <Dropdown overlay={menu}

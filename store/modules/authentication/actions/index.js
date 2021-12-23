@@ -1,6 +1,7 @@
 import {
     AUTO_LOGIN,
     FORGET_PASSWORD,
+    LOG_IN,
     LOG_OUT,
     RESET_PASSWORD,
     SIGN_UP
@@ -12,7 +13,7 @@ export const login          = (data) => async (dispatch) => {
     try {
         const res = await AuthenticationDataService.login(data);
         dispatch({
-                     type   : SIGN_UP,
+                     type   : LOG_IN,
                      payload: {
                          user: res.data.user,
                          jwt : res.data.jwt
@@ -25,6 +26,7 @@ export const login          = (data) => async (dispatch) => {
                                     description: `You have been Logged In Successfully`,
                                     duration   : 0
                                 });
+
         localStorage.setItem('authState',
                              JSON.stringify({
                                                 user: res.data.user,
@@ -69,6 +71,8 @@ export const signUp         = (data) => async (dispatch) => {
                               });
     }
 };
+
+
 export const forgetPassword = (data) => async (dispatch) => {
     try {
         await AuthenticationDataService.forgetPassword(data);
@@ -150,7 +154,6 @@ export const autologin      = () => async (dispatch) => {
                      type   : LOG_OUT,
                      payload: {authState: null}
                  });
-
     }
 
 

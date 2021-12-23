@@ -15,7 +15,8 @@ const bindMiddleware = (middleware) => {
     }
     return applyMiddleware(...middleware);
 };
-const store          = createStore(
+
+const store = createStore(
     rootReducer,
     initialState,
     bindMiddleware([thunk])

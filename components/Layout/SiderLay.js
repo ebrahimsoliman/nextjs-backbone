@@ -36,10 +36,7 @@ const {
 function SiderLay() {
     const user     = useSelector((state => state.authenticationReducer.user));
     const dispatch = useDispatch();
-
-
     useEffect(() => {
-                  console.log(process.env.NEXT_PUBLIC_BACK_APP_URL)
                   const ios = socketIOClient(process.env.NEXT_PUBLIC_BACK_APP_URL)
                   ios.on('fresh',
                          e => {
@@ -113,8 +110,13 @@ function SiderLay() {
                          title="Externals">
 
                     <Menu.Item key="17"><Link href="/externals/carousels/swiper">Swiper</Link></Menu.Item>
-                    <Menu.Item key="18"><Link href="externals/payments/stripe">Stripe</Link></Menu.Item>
-                    <Menu.Item key="19"><Link href="externals/zoom/">Zoom</Link></Menu.Item>
+                    <Menu.Item key="18"><Link href="/externals/payments/stripe">Stripe</Link></Menu.Item>
+                    <Menu.Item key="19"><Link href="/externals/zoom/">Zoom</Link></Menu.Item>
+                    <Menu.Item key="20"><Link href="/externals/animations/lottie">Lottie</Link></Menu.Item>
+                    <Menu.Item key="21"><Link href="/externals/animations/odometer">Odometer</Link></Menu.Item>
+                    <Menu.Item key="22"><Link href="/externals/animations/scroll-effect">Scroll
+                                                                                         Effect</Link></Menu.Item>
+                    <Menu.Item key="23"><Link href="/externals/charts/antdcharts">Antd Charts</Link></Menu.Item>
                 </SubMenu>
             </Menu>
         </Sider>

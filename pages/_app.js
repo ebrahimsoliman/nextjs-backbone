@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import 'bootstrap/dist/css/bootstrap.css';
+import 'odometer/themes/odometer-theme-default.css'
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 import {Layout}      from 'antd';
@@ -9,7 +9,7 @@ import store         from '../store/index';
 import NextNProgress from "nextjs-progressbar";
 import SiderLay      from "../components/Layout/SiderLay";
 import FooterLay     from "../components/Layout/FooterLay";
-
+import 'antd/es/popover/style/index.css'
 const {
           Content
       } = Layout;
@@ -26,7 +26,7 @@ function MyApp({
                 <SiderLay/>
                 <Layout>
                     <NextNProgress/>
-                    <Content style={{padding: '50px 50px'}}>
+                    <Content style={{padding: '20px 20px'}}>
                         <Component {...pageProps} /></Content>
                     <FooterLay/>
                 </Layout>

@@ -9,14 +9,19 @@ import MeetupsDataService from '../../../../services/meetups.service'
 import {notification}     from "antd";
 import socketIOClient     from "socket.io-client";
 
+const qs  = require('qs');
 const ios = socketIOClient(process.env.NEXT_PUBLIC_BACK_APP_URL)
 
-export const retrieveMeetups = () => async (dispatch) => {
+export const retrieveMeetups = (params) => async (dispatch) => {
     try {
-        const res = await MeetupsDataService.retrieveMeetups();
+        const res = await MeetupsDataService.retrieveMeetups(qs.stringify(params));
+
         dispatch({
                      type   : RETRIEVE_MEETUPS,
-                     payload: res.data.data
+                     payload: {
+                         meetups: res.data.data,
+                         meta   : res.data.meta
+                     }
                  })
     }
     catch (err) {
@@ -77,7 +82,6 @@ export const updateMeetup = (id,
                                 });
     }
     catch (err) {
-
         notification['error']({
                                   message    : err.response.data.error.details.errors[0].path[0],
                                   description: err.response.data.error.message,
