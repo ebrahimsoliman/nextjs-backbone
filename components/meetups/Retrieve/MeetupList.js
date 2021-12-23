@@ -107,10 +107,9 @@ function UpdateMeetupList() {
                 </Dropdown.Button>
             </Col>
             {meetups.meetups.map((meetup) => (
-                <Col md={12}
+                <Col md={12} key={meetup.id}
                      xs={24}
                 ><MeetupItem
-                    key={meetup.id}
                     id={meetup.id}
                     image={meetup.attributes.image}
                     title={meetup.attributes.title}
