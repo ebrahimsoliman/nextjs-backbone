@@ -2,10 +2,13 @@ import {useRouter} from "next/router";
 import {
     Button,
     Card,
-    Image
-}                  from 'antd';
+    CardActionArea,
+    CardActions,
+    CardContent,
+    CardMedia,
+    Typography
+}                  from '@mui/material';
 
-const {Meta} = Card;
 
 function MeetupItem(props) {
     const router = useRouter();
@@ -15,23 +18,36 @@ function MeetupItem(props) {
     }
 
     return (
+        <Card title={props.title}>
+            <CardActionArea>
+                <CardMedia
+                    component="img"
+                    height="140"
+                    image={props.image}
+                    alt="green iguana"
+                />
 
+                <CardContent>
+                    <Typography gutterBottom
+                                variant="h5"
+                                component="div">
+                        {props.title}
+                    </Typography>
+                    <Typography variant="body2"
+                                color="text.secondary">
+                        {props.address}
+                    </Typography>
+                </CardContent>
+            </CardActionArea>
+            <CardActions>
+                <Button onClick={showDetailsHandler}
+                        size="small"
+                        color="primary">
+                    Show Details
+                </Button>
+            </CardActions>
 
-        <div>
-            <Card title={props.title}
-                  hoverable
-                  cover={<Image style={{width: '100%'}}
-                                alt={props.title}
-                                src={props.image}/>}
-            >
-                <Meta title={props.title}
-                      description={props.address}/>
-
-                <div>
-                    <Button type="primary"
-                            onClick={showDetailsHandler}>Show Details</Button>
-                </div>
-            </Card></div>
+        </Card>
 
 
     );
