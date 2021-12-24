@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
-import {Input}           from "antd";
+import {
+    Input,
+    Typography
+}                        from "@mui/material";
 
 function Styles() {
 
@@ -15,8 +18,8 @@ function Styles() {
     }
 
     return (
-        <div><h1>Dynamic Style</h1>
-            <p>Please Enter more than three chars</p>
+        <div><Typography variant={"h1"}>Dynamic Style</Typography>
+            <Typography variant={"h4"}>Please Enter more than three chars</Typography><br/>
             <Input style={{
                 color      : !isValid ? 'red' : 'black',
                 borderColor: !isValid ? 'red' : 'black'

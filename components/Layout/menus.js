@@ -1,14 +1,5 @@
-import {
-    DeleteOutlined,
-    EditOutlined,
-    FlagOutlined,
-    LogoutOutlined,
-    PlusOutlined,
-    TeamOutlined,
-    UserOutlined
-}             from "@ant-design/icons";
+
 import Link   from "next/link";
-import {Menu} from 'antd'
 import {
     useDispatch,
     useSelector
@@ -21,8 +12,8 @@ function Menus() {
     const dispatch  = useDispatch()
     const {SubMenu} = Menu;
 
-    return (
-        <Menu theme="dark"
+    return (<div>s</div>
+        /*<Menu theme="dark"
               defaultSelectedKeys={['6']}
               mode="inline">
             <SubMenu key="Basics"
@@ -77,7 +68,7 @@ function Menus() {
                                                                                      Effect</Link></Menu.Item>
                 <Menu.Item key="23"><Link href="/externals/charts/antdcharts">Antd Charts</Link></Menu.Item>
             </SubMenu>
-        </Menu>);
+        </Menu>*/);
 }
 
 export default Menus;

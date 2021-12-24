@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {
     Button,
-    Input
-}                        from "antd";
+    Input,
+    Typography
+}                        from "@mui/material";
 
 function Binding(props) {
     //use state to tell ui to re render whenever this value changes after event binding
@@ -24,15 +25,16 @@ function Binding(props) {
     return (
         <div>
             {/*data binding*/}
-            <p className={cls}>this number {i} is bind and dynamic and you can change it by press
+            <Typography variant={'body1'}
+                        className={cls}>this number {i} is bind and dynamic and you can change it by press
                 {/*event binding*/}
-                               here <Button onClick={increase}>increment</Button></p>
+                                        here <Button onClick={increase}>increment</Button></Typography>
             <br/>
             {/*two binding*/}
-            <p> Two Way Binding<Input type="text"
-                                      value={x}
-                                      onChange={change}/></p>
-            <p>{i} {'         '}{x}</p>
+            <Typography variant={'body1'}> Two Way Binding <Input type="text"
+                                                              value={x}
+                                                              onChange={change}/></Typography>
+            <Typography variant={'body1'}>{i} {' '}{x}</Typography>
         </div>
     );
 }

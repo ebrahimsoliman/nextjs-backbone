@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
-import {Button}          from "antd";
+import {
+    Button,
+    Typography
+}                        from "@mui/material";
 
 function Conditions() {
     const [show, setShow] = useState(true)
@@ -10,10 +13,10 @@ function Conditions() {
 
     return (
         <div>
-            <h1>Conditions</h1>
+            <Typography variant={'h1'}>Conditions</Typography>
             <Button onClick={f}>toggle</Button>
-            {show ? <p>shown</p> : <p>hide</p>}
-           {/* {show && <p>shown</p>}*/}
+            {show ? <Typography variant={'body1'}>shown</Typography> : <Typography variant={'body1'}>hidden</Typography>}
+             {/*{show && <Typography variant={'body1'}>shown</Typography>}*/}
 
         </div>
 

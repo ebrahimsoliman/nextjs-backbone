@@ -1,45 +1,12 @@
-import React from 'react';
-import {
-    Button,
-    Dropdown,
-    Menu
-}            from "antd";
+import React    from 'react';
+import {Button} from "@mui/material";
 
-const menu = (
-    <Menu>
-        <Menu.Item>
-            <a target="_blank"
-               rel="noopener noreferrer"
-               href="https://www.antgroup.com">
-                1st menu item
-            </a>
-        </Menu.Item>
-        <Menu.Item>
-            <a target="_blank"
-               rel="noopener noreferrer"
-               href="https://www.aliyun.com">
-                2nd menu item
-            </a>
-        </Menu.Item>
-        <Menu.Item>
-            <a target="_blank"
-               rel="noopener noreferrer"
-               href="https://www.luohanacademy.com">
-                3rd menu item
-            </a>
-        </Menu.Item>
-    </Menu>
-);
 
 //props used to parent to child data communication between components
 function EventEmitChild(props) {
-    props.onEventEmit('data from child')
+
     return (
-        <Dropdown overlay={menu}
-                  placement="bottomLeft"
-                  arrow>
-            <Button>bottomLeft</Button>
-        </Dropdown>
+        <Button onClick={()=>{props.onEventEmit('Data From Child')}}>send data to parent</Button>
     );
 }
 

@@ -7,7 +7,6 @@ import {
     SIGN_UP
 }                                from "./types";
 import AuthenticationDataService from '../../../../services/authentication.service'
-import {notification}            from "antd";
 
 export const login          = (data) => async (dispatch) => {
     try {
@@ -21,11 +20,11 @@ export const login          = (data) => async (dispatch) => {
 
                  });
 
-        notification['success']({
+      /*  notification['success']({
                                     message    : 'Success',
                                     description: `You have been Logged In Successfully`,
                                     duration   : 0
-                                });
+                                });*/
 
         localStorage.setItem('authState',
                              JSON.stringify({
@@ -34,11 +33,11 @@ export const login          = (data) => async (dispatch) => {
                                             }))
     }
     catch (err) {
-        notification['error']({
+      /*  notification['error']({
                                   message    : 'Signup Failed',
                                   description: err.response.data.error.message,
                                   duration   : 0
-                              });
+                              });*/
     }
 
 };
@@ -52,11 +51,11 @@ export const signUp         = (data) => async (dispatch) => {
                          jwt : res.data.jwt
                      },
                  });
-        notification['success']({
+       /* notification['success']({
                                     message    : 'Success',
                                     description: `You have been Signed Up Successfully`,
                                     duration   : 0
-                                });
+                                });*/
         localStorage.setItem('authState',
                              JSON.stringify({
                                                 user: res.data.user,
@@ -64,11 +63,11 @@ export const signUp         = (data) => async (dispatch) => {
                                             }))
     }
     catch (err) {
-        notification['error']({
+      /*  notification['error']({
                                   message    : 'Signup Failed',
                                   description: err.response.data.error.message,
                                   duration   : 0
-                              });
+                              });*/
     }
 };
 
@@ -79,19 +78,19 @@ export const forgetPassword = (data) => async (dispatch) => {
         dispatch({
                      type: FORGET_PASSWORD
                  });
-        notification['success']({
+       /* notification['success']({
                                     message    : 'Successful',
                                     description: `An Email Sent To You're Email Address`,
                                     duration   : 0
-                                });
+                                });*/
 
     }
     catch (err) {
-        notification['error']({
+    /*    notification['error']({
                                   message    : 'Signup Failed',
                                   description: err.response.data.error.message,
                                   duration   : 0
-                              });
+                              });*/
     }
 };
 export const resetPassword  = (data) => async (dispatch) => {
@@ -104,11 +103,11 @@ export const resetPassword  = (data) => async (dispatch) => {
                          jwt : res.data.jwt
                      }
                  });
-        notification['success']({
+    /*    notification['success']({
                                     message    : 'Your Password Has Been Reset',
                                     description: `And You Are Logged In Successfully`,
                                     duration   : 0
-                                });
+                                });*/
         localStorage.setItem('authState',
                              JSON.stringify({
                                                 user: res.data.user,
@@ -116,11 +115,11 @@ export const resetPassword  = (data) => async (dispatch) => {
                                             }))
     }
     catch (err) {
-        notification['error']({
+/*        notification['error']({
                                   message    : err.name,
                                   description: err.message,
                                   duration   : 0
-                              });
+                              });*/
     }
 };
 export const logout         = () => async (dispatch) => {
@@ -137,11 +136,11 @@ export const autologin      = () => async (dispatch) => {
 
     try {
         const res = await AuthenticationDataService.me(JSON.parse(localStorage.getItem('authState')).jwt);
-        notification['success']({
+     /*   notification['success']({
                                     message    : 'Welcome Back',
                                     description: `Your Last Login Session Was Recovered`,
                                     duration   : 0
-                                });
+                                });*/
         dispatch({
                      type   : AUTO_LOGIN,
                      payload: {authState: JSON.parse(localStorage.getItem('authState'))}

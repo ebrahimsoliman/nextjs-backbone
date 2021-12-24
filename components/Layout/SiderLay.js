@@ -26,6 +26,7 @@ function SiderLay() {
                   const ios = socketIOClient(process.env.NEXT_PUBLIC_BACK_APP_URL)
                   ios.on('fresh',
                          e => {
+                             console.log('meetupsChanged')
                              dispatch(retrieveMeetups())
                          })
                   dispatch(autologin())
