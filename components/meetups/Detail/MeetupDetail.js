@@ -1,25 +1,25 @@
 import {
-    Col,
-    Image,
-    Row
-} from "antd";
+    Grid,
+    Typography
+}              from "@mui/material";
 
 function MeetupDetail(props) {
 
     return (
-        <Row>
-            <Col span={16}>
+        <Grid container
+              rowSpacing={2}>
+            <Grid xs={10}>
                 <div>
                     <Image src={props.image}
                            alt={props.title}/>
                 </div>
                 <div>
-                    <h3>{props.title}</h3>
-                    <p>{props.address}</p>
-                    <p>{props.description}</p>
+                    <Typography variant="h3">{props.title}</Typography>
+                    <Typography variant="body1">{props.address}</Typography>
+                    <Typography variant='body1'>{props.description}</Typography>
                 </div>
-            </Col>
-        </Row>
+            </Grid>
+        </Grid>
     );
 }
 
