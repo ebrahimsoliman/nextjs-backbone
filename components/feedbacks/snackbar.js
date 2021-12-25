@@ -1,18 +1,21 @@
-import React, {Component} from 'react';
-import {Snackbar}         from "@mui/material";
+import React from 'react';
+import {
+    useSelector
+}            from "react-redux";
 
-class SnackBar
-    extends Component {
-    render() {
-        return (
+function Snackbar() {
+    const sb       = useSelector((state => state.uiReducer.snackbar))
+
+    return (
+        <div>
             <div>
                 <Snackbar
-                    open={true}
-                    message="I love snacks"
+                    open={sb.show}
+                    message={sb.message}
                 />
             </div>
-        );
-    }
+        </div>
+    );
 }
 
-export default SnackBar;
+export default Snackbar;
