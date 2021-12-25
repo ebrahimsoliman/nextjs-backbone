@@ -10,25 +10,46 @@ import {
 }                        from "react";
 import {retrieveMeetups} from "../../../store/modules/meetups/actions";
 import {
+    Box,
+    Button,
+    ButtonGroup,
+    Collapse,
     FormControl,
     Grid,
     InputLabel,
+    List,
+    ListItemButton,
+    ListItemText,
     MenuItem,
     Pagination,
-    Select
+    Select,
+    TextField
 }                        from "@mui/material";
+import {
+    ArrowDropDownOutlined,
+    ArrowDropUpOutlined
+}                        from "@mui/icons-material";
 
 function UpdateMeetupList() {
-    const dispatch                = useDispatch()
-    let [lcurrent, setLcurrent]   = useState(1)
-    let [lpageSize, setLpageSize] = useState(10)
-    let [lsearch, setLsearch]     = useState('')
-    let [lsort, setLsort]         = useState('title')
-    let [lorder, setLorder]       = useState(':asc');
+    const dispatch                              = useDispatch()
+    let [lcurrent, setLcurrent]                 = useState(1)
+    let [lpageSize, setLpageSize]               = useState(10)
+    let [lsearch, setLsearch]                   = useState('')
+    let [lsort, setLsort]                       = useState('title')
+    let [lorder, setLorder]                     = useState(':asc');
+    let [openPageSizeList, setOpenPageSizeList] = useState(false);
+    let [openSortList, setOpenSortList]         = useState(false);
+
     useEffect(() => {
                   retr()
               },
-              [])
+              [
+                  lpageSize,
+                  lcurrent,
+                  lsearch,
+                  lsort,
+                  lorder
+              ])
 
     function retr() {
         dispatch(retrieveMeetups({
@@ -44,116 +65,126 @@ function UpdateMeetupList() {
                                      sort      : lsort + lorder
                                  }))
     }
-    function handleSortMenuClick(e) {
-        setLsort(e.key)
-        retr();
-    }
-    function onShowPageSizeChange(ele,
-                                  current) {
-        setLcurrent(current)
-        retr()
-    }
-    function handleButtonClick(e) {
-        if (lorder === ':asc') {
-            setLorder(':desc')
-            retr();
-        }
-        else {
-            setLorder(':asc')
-            retr();
-        }
 
+    function ChangeSortOrder() {
+        lorder === ':asc' ? setLorder(':desc') : setLorder(':asc')
     }
-    const onSearch        = value => {
-        setLsearch(value)
-        retr()
-    }
-    const [age, setAge]   = useState('');
-    const [open, setOpen] = useState(false);
-    const handleSizeChange    = (event) => {
-        setLpageSize(event.target.value)
-        setAge(event.target.value);
-        retr();
-    };
-    const handleClose     = () => {
-        setOpen(false);
-    };
-    const handleOpen      = () => {
-        setOpen(true);
-    };
-    /*  const menu     = (<Menu onClick={handleSortMenuClick}>
-     <Menu.Item key="title"
-     icon={<UserOutlined/>}>
-     Title
-     </Menu.Item>
-     <Menu.Item key="address"
-     icon={<UserOutlined/>}>
-     Address
-     </Menu.Item>
-     </Menu>);*/
+
+
     const meetups = useSelector((state => state.meetupsReducer))
     return (
-        <Grid container
-              spacing={2}>
-            {/*  <Grid xs={10}
-             item> <Search placeholder="input search text"
-             allowClear
-             onSearch={onSearch}/>
-             </Grid>*/}
-            {/* <Grid xs={2}
-             item>
-             <Dropdown.Button onClick={handleButtonClick}
-             overlay={menu}>
-             Sort By
-             </Dropdown.Button>
-             </Grid>*/}
-            {meetups.meetups.map((meetup) => (
-                <Grid xs={3}
-                      item
-                      key={meetup.id}
-                ><MeetupItem
-                    id={meetup.id}
-                    image={meetup.attributes.image}
-                    title={meetup.attributes.title}
-                    address={meetup.attributes.address}
+        <Box>
+            <Box sx={{p:1}}><Grid
+                justifyContent="space-between"
+                container>
+                <Grid xs={10}
+                      item>
+                    <TextField fullWidth
+                               id="outlined-basic"
+                               label="Search"
+                               variant="outlined"
+                               onChange={(event => {
+                                   setLsearch(event.target.value)
+                               })}/>
+                </Grid>
+                <Grid item><ButtonGroup style={{height: '100%'}}
 
-                /></Grid>
-            ))}
+                                        variant="contained"
+                                        aria-label="outlined primary button group">
+                    <Button fullWidth
+                            style={{textTransform: 'capitalize'}}
+                            onClick={() => {
+                                setOpenSortList(!openSortList)
+                            }}>{lsort} </Button>
+                    <Button
+                        onClick={ChangeSortOrder}>{lorder === ':asc'
+                                                   &&
+                                                   <ArrowDropUpOutlined/>}
+                        {lorder === ':desc' &&
+                         <ArrowDropDownOutlined/>}
+                    </Button>
+                </ButtonGroup>
+                    <Box sx={{
+                        position: "absolute",
+                        zIndex  : '100'
+                    }}><Collapse mountOnEnter
+                                 in={openSortList}>
+                        <List sx={{
+                            width  : '100%',
+                            bgcolor: 'background.paper'
+                        }}>
+                            <ListItemButton onClick={() => {
+                                setLsort('title');
+                                setOpenSortList(false)
+                            }}>
+                                <ListItemText primary="Title"/>
+                            </ListItemButton>
+                            <ListItemButton onClick={() => {
+                                setLsort('address')
+                                setOpenSortList(false)
+                            }}>
+                                <ListItemText primary="Address"/>
+                            </ListItemButton>
+                        </List>
+                    </Collapse></Box>
+                </Grid>
+            </Grid></Box>
+            <Box sx={{p:1}}><Grid container
+                     spacing={2}>
 
-            <Grid xs={10}
-                  item>
-                <Pagination variant="outlined"
-                            color="primary"
-                            page={lcurrent}
-                            count={Math.ceil(meetups.meta.pagination.total / lpageSize)}
-                            onChange={onShowPageSizeChange}/>
-            </Grid>
-            <Grid xs={2}>
-                <FormControl sx={{
-                    m       : 1,
-                    minWidth: 120
-                }}>
-                    <InputLabel id="demo-controlled-open-select-label">Page Size</InputLabel>
-                    <Select
-                        labelId="demo-controlled-open-select-label"
-                        id="demo-controlled-open-select"
-                        open={open}
-                        onClose={handleClose}
-                        onOpen={handleOpen}
-                        value={age}
-                        label="Page Size"
-                        onChange={handleSizeChange}>
-                        {Array.from(Array(10)
-                                        .keys())
-                              .map(e => {
-                                  return <MenuItem value={e * 10}>{e * 10}</MenuItem>
-                              })}
-                    </Select>
-                </FormControl>
+                {meetups.meetups.map((meetup) => (
+                    <Grid xs={3}
+                          item
+                          key={meetup.id}
+                    ><MeetupItem
+                        id={meetup.id}
+                        image={meetup.attributes.image}
+                        title={meetup.attributes.title}
+                        address={meetup.attributes.address}
 
-            </Grid>
-        </Grid>
-    );
+                    /></Grid>
+                ))}
+                <Grid xs={10}
+                      item>
+                    <Pagination variant="outlined"
+                                color="primary"
+                                page={lcurrent}
+                                count={Math.ceil(meetups.meta.pagination.total / lpageSize)}
+                                onChange={(e,
+                                           c) => {
+                                    setLcurrent(c)
+                                }}/>
+                </Grid>
+                <Grid xs={2}>
+                    <FormControl sx={{
+                        m       : 1,
+                        minWidth: 120
+                    }}>
+                        <InputLabel id="demo-controlled-open-select-label">Page Size</InputLabel>
+                        <Select
+                            labelId="demo-controlled-open-select-label"
+                            id="demo-controlled-open-select"
+                            open={openPageSizeList}
+                            onClose={() => {
+                                setOpenPageSizeList(false)
+                            }}
+                            onOpen={() => {
+                                setOpenPageSizeList(true)
+                            }}
+                            value={lpageSize}
+                            label="Page Size"
+                            onChange={(event) => {
+                                setLpageSize(event.target.value)
+                            }}>
+                            {Array.from(Array(5)
+                                            .keys())
+                                  .map(e => {
+                                      return <MenuItem value={e * 10}>{e * 10}</MenuItem>
+                                  })}
+                        </Select>
+                    </FormControl>
+                </Grid>
+            </Grid></Box></Box>);
 }
 
 export default UpdateMeetupList;

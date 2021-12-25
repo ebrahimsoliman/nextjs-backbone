@@ -32,13 +32,13 @@ function Menus() {
                 <Menu.Item key="2"
                            icon={<UserOutlined/>}> <Link href="/meetups/">All Meetups</Link></Menu.Item>
                 <Menu.Item key="3"
-                           icon={<PlusOutlined/>}><Link href="/meetups/new-meetup">Add
+                           icon={<PlusOutlined/>}><Link href="/meetups/create">Add
                                                                                    Meetup</Link></Menu.Item>
                 <Menu.Item key="4"
-                           icon={<EditOutlined/>}> <Link href="/meetups/update-meetup">Update
+                           icon={<EditOutlined/>}> <Link href="/meetups/update">Update
                                                                                        Meetup</Link></Menu.Item>
                 <Menu.Item key="5"
-                           icon={<DeleteOutlined/>}><Link href="/meetups/delete-meetup">Delete
+                           icon={<DeleteOutlined/>}><Link href="/meetups/delete">Delete
                                                                                         Meetup</Link></Menu.Item>
             </SubMenu>
 

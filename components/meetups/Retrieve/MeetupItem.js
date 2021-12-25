@@ -28,7 +28,7 @@ function MeetupItem(props) {
                 />
 
                 <CardContent>
-                    <Typography gutterBottom
+                    <Typography sx={{wordBreak:'break-all'}} gutterBottom
                                 variant="h5"
                                 component="div">
                         {props.title}

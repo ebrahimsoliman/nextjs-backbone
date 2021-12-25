@@ -207,7 +207,7 @@ export default function MyApp(
                         <Typography variant="h6"
                                     noWrap
                                     component="div">
-                            Mini variant drawer
+                            Blueholding Backbone
                         </Typography>
                     </Toolbar>
                 </AppBar>
@@ -299,24 +299,23 @@ export default function MyApp(
                                 {
                                     name: 'Retrieve',
                                     icon: <SyncOutlined/>,
-                                    link: '/basics/bind'
+                                    link: '/meetups'
                                 },
                                 {
                                     name: 'Create',
                                     icon: <AddOutlined/>,
-                                    link: '/basics/conditions'
+                                    link: '/meetups/create'
                                 },
                                 {
                                     name: 'Update',
                                     icon: <BorderColorOutlined/>,
-                                    link: '/basics/lists'
+                                    link: '/meetups/update'
                                 },
                                 {
                                     name: 'Delete',
                                     icon: <DeleteOutlined/>,
-                                    link: '/basics/props'
-                                },
-
+                                    link: '/meetups/delete'
+                                }
                             ].map((text) => (
                                 <ListItemButton component="a"
                                                 href={text.link}
@@ -535,7 +534,6 @@ export default function MyApp(
                                     icon: <MouseOutlined/>,
                                     link: '/externals/animations/scroll-effect'
                                 },
-
                             ].map((text) => (
                                 <ListItemButton component="a"
                                                 href={text.link}
@@ -549,7 +547,6 @@ export default function MyApp(
                         </List>
                     </Collapse>
                     <Divider/>
-
                 </Drawer>
                 <Box component="main"
                      sx={{
@@ -559,6 +556,7 @@ export default function MyApp(
                     <DrawerHeader/>
                     <Component {...pageProps} />
                 </Box>
-            </Box></Provider>
+            </Box>
+        </Provider>
     );
 }
