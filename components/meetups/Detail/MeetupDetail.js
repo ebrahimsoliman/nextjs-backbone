@@ -1,7 +1,7 @@
 import {
     Grid,
     Typography
-}              from "@mui/material";
+} from "@mui/material";
 
 function MeetupDetail(props) {
 
@@ -10,13 +10,17 @@ function MeetupDetail(props) {
               rowSpacing={2}>
             <Grid xs={10}>
                 <div>
-                    <Image src={props.image}
-                           alt={props.title}/>
+                    <img
+                        src={props.image}
+                        alt={props.title}/>
                 </div>
                 <div>
-                    <Typography variant="h3">{props.title}</Typography>
-                    <Typography variant="body1">{props.address}</Typography>
-                    <Typography variant='body1'>{props.description}</Typography>
+                    <Typography variant="h3"
+                                style={{wordBreak: "break-word"}}>{props.title}</Typography>
+                    <Typography variant="body1"
+                                style={{wordBreak: "break-word"}}>{props.address}</Typography>
+                    <Typography variant="body1"
+                                style={{wordBreak: "break-word"}}>{props.description}</Typography>
                 </div>
             </Grid>
         </Grid>
