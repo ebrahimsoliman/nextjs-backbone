@@ -8,14 +8,14 @@ import {
 import MeetupsDataService from '../../../../services/meetups.service'
 import socketIOClient     from "socket.io-client";
 import {snackbar}         from "../../ui/actions";
-
+import {useSelector}      from "react-redux";
 const qs  = require('qs');
 const ios = socketIOClient(process.env.NEXT_PUBLIC_BACK_APP_URL)
 
 export const retrieveMeetups = (params) => async (dispatch) => {
+
     try {
         const res = await MeetupsDataService.retrieveMeetups(qs.stringify(params));
-
         dispatch({
                      type   : RETRIEVE_MEETUPS,
                      payload: {
@@ -42,12 +42,12 @@ export const createMeetup = (data) => async (dispatch) => {
                                        payload: res.data
                                    });
                           dispatch(retrieveMeetups())
+
                           dispatch(snackbar({
                                                 show    : true,
                                                 message : 'Meetup Created Successfully',
                                                 severity: 'success'
                                             }))
-
                       })
                       .catch(err => {
                           console.log(err.message)
@@ -77,29 +77,32 @@ export const updateMeetup = (id,
                      type   : UPDATE_MEETUP,
                      payload: ret.data,
                  });
-        /* notification['success']({
-         message    : 'Meetup Updated Successfully',
-         description: `Meetup has been Updated successfully`,
-         duration   : 0
-         });*/
+        dispatch(snackbar({
+                              show    : true,
+                              message : 'Meetup Updated Successfully',
+                              severity: 'success'
+                          }))
     }
     catch (err) {
-        /*  notification['error']({
-         message    : err.response.data.error.details.errors[0].path[0],
-         description: err.response.data.error.message,
-         duration   : 0
-         });*/
+        dispatch(snackbar({
+                              show    : true,
+                              message : (err.response.data.error.details.errors[0].path[0]
+                                         + ' ' + err.response.data.error.message),
+                              severity: 'error'
+                          }))
     }
 };
 
-export const selectMeetup = (data) => async (dispatch) => {
+export const selectMeetup = (data) => async (dispatch,
+                                             state) => {
     dispatch({
                  type   : SELECT_MEETUP,
                  payload: data,
              });
 };
 
-export const deleteMeetup = (id) => async (dispatch) => {
+export const deleteMeetup = (id) => async (dispatch,
+                                           getState) => {
     try {
         await MeetupsDataService.deleteMeetup(id);
         dispatch({
@@ -108,19 +111,24 @@ export const deleteMeetup = (id) => async (dispatch) => {
                  });
         ios.emit('meetupsChanged',
                  {})
-        /*notification['success']({
-         message    : 'Meetup Deleted Successfully',
-         description: `Meetup has been deleted successfully`,
-         duration   : 0
-         });*/
+        dispatch(snackbar({
+                              show    : true,
+                              message : 'Meetup Deleted Successfully',
+                              severity: 'success'
+                          }))
         dispatch(retrieveMeetups())
+        console.log(meetups)
     }
     catch (err) {
-        /* notification['error']({
-         message    : err.response.data.error.details.errors[0].path[0],
-         description: err.response.data.error.message,
-         duration   : 0
-         });*/
+
+
+        dispatch(snackbar({
+                              show    : true,
+                              message : (err.response.data.error.details.errors[0].path[0]
+                                         + ' ' + err.response.data.error.message),
+                              severity: 'error'
+                          }))
+
     }
 };
 

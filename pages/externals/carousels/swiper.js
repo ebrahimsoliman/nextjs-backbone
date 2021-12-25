@@ -3,7 +3,6 @@ import {
     Swiper,
     SwiperSlide
 }              from "swiper/react";
-import {Image} from "antd";
 import SwiperCore, {
     Autoplay,
     EffectCube,
@@ -31,14 +30,10 @@ function SwiperSlider() {
                 }}
                 pagination={true}
                 className="mySwiper">
-                <SwiperSlide><Image preview={false}
-                                    src={'https://source.unsplash.com/user/c_v_r/1600x900'}/></SwiperSlide>
-                <SwiperSlide><Image preview={false}
-                                    src={'https://source.unsplash.com/user/c_v_r/1600x900'}/></SwiperSlide>
-                <SwiperSlide><Image preview={false}
-                                    src={'https://source.unsplash.com/user/c_v_r/1600x900'}/></SwiperSlide>
-                <SwiperSlide><Image preview={false}
-                                    src={'https://source.unsplash.com/user/c_v_r/1600x900'}/></SwiperSlide>
+                <SwiperSlide><img src={'https://source.unsplash.com/user/c_v_r/1600x900'}/></SwiperSlide>
+                <SwiperSlide><img src={'https://source.unsplash.com/user/c_v_r/1600x900'}/></SwiperSlide>
+                <SwiperSlide><img src={'https://source.unsplash.com/user/c_v_r/1600x900'}/></SwiperSlide>
+                <SwiperSlide><img src={'https://source.unsplash.com/user/c_v_r/1600x900'}/></SwiperSlide>
             </Swiper>
         </div>
     );

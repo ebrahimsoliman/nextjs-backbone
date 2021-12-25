@@ -42,6 +42,7 @@ function DeleteMeetupList() {
     let [lorder, setLorder]                     = useState(':asc');
     let [openPageSizeList, setOpenPageSizeList] = useState(false);
     let [openSortList, setOpenSortList]         = useState(false);
+    let [selected, setSelected] = useState(0);
 
     useEffect(() => {
                   retr()
@@ -77,7 +78,6 @@ function DeleteMeetupList() {
     const meetups = useSelector((state => state.meetupsReducer))
 
 
-    const [selected, setSelected] = useState(0);
 
     function selects(index,
                      item) {
