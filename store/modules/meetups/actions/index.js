@@ -6,8 +6,8 @@ import {
     UPDATE_MEETUP
 }                         from "./types";
 import MeetupsDataService from '../../../../services/meetups.service'
-// import {notification}     from "antd";
 import socketIOClient     from "socket.io-client";
+import {snackbar}         from "../../ui/actions";
 
 const qs  = require('qs');
 const ios = socketIOClient(process.env.NEXT_PUBLIC_BACK_APP_URL)
@@ -42,6 +42,9 @@ export const createMeetup = (data) => async (dispatch) => {
                                        payload: res.data
                                    });
                           dispatch(retrieveMeetups())
+                          dispatch(snackbar({show      : true,
+                                                message: 'Meetup Created Successfully'
+                                            }))
                           /*notification['success']({
                            message    : 'Meetup Created Successfully',
                            description: `Meetup has been Created successfully`,

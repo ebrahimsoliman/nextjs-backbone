@@ -1,9 +1,10 @@
-import React from 'react';
+import React      from 'react';
 import {
     useSelector
-}            from "react-redux";
+}                 from "react-redux";
+import {Snackbar} from "@mui/material";
 
-function Snackbar() {
+function SnackBar() {
     const sb       = useSelector((state => state.uiReducer.snackbar))
 
     return (
@@ -18,4 +19,4 @@ function Snackbar() {
     );
 }
 
-export default Snackbar;
+export default SnackBar;
