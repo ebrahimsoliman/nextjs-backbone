@@ -2,8 +2,9 @@ import {SNACK_BAR} from "./actions/types";
 
 const initialState = {
     snackbar: {
-        show   : false,
-        message: ''
+        show    : false,
+        message : '',
+        severity: ''
     }
 };
 

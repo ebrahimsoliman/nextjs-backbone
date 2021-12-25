@@ -42,22 +42,21 @@ export const createMeetup = (data) => async (dispatch) => {
                                        payload: res.data
                                    });
                           dispatch(retrieveMeetups())
-                          dispatch(snackbar({show      : true,
-                                                message: 'Meetup Created Successfully'
+                          dispatch(snackbar({
+                                                show    : true,
+                                                message : 'Meetup Created Successfully',
+                                                severity: 'success'
                                             }))
-                          /*notification['success']({
-                           message    : 'Meetup Created Successfully',
-                           description: `Meetup has been Created successfully`,
-                           duration   : 0
-                           });*/
+
                       })
                       .catch(err => {
                           console.log(err.message)
-                          /* notification['error']({
-                           message    : err.response.data.error.details.errors[0].path[0],
-                           description: err.response.data.error.message,
-                           duration   : 0
-                           });*/
+                          dispatch(snackbar({
+                                                show    : true,
+                                                message : (err.response.data.error.details.errors[0].path[0]
+                                                           + ' ' + err.response.data.error.message),
+                                                severity: 'error'
+                                            }))
                       });
 
 
