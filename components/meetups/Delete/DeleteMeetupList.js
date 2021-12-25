@@ -1,39 +1,58 @@
 import MeetupItem from '../Retrieve/MeetupItem';
-import {
-    Col,
-    Dropdown,
-    Input,
-    Menu,
-    Pagination,
-    Row
-}                 from "antd";
 
 import {
     useDispatch,
     useSelector
-}                     from "react-redux";
+} from "react-redux";
 import {
     useEffect,
     useState
-}                     from "react";
+} from "react";
 import {
     retrieveMeetups,
     selectMeetup
-}                     from "../../../store/modules/meetups/actions";
-import {UserOutlined} from "@ant-design/icons";
+} from "../../../store/modules/meetups/actions";
+import {
+    Box,
+    Button,
+    ButtonGroup,
+    Collapse,
+    FormControl,
+    Grid,
+    InputLabel,
+    List,
+    ListItemButton,
+    ListItemText,
+    MenuItem,
+    Pagination,
+    Select,
+    TextField
+} from "@mui/material";
+import {
+    ArrowDropDownOutlined,
+    ArrowDropUpOutlined
+} from "@mui/icons-material";
 
-function UpdateMeetupList() {
-    const dispatch                = useDispatch()
-    const {Search}                = Input;
-    let [lcurrent, setLcurrent]   = useState(1)
-    let [lpageSize, setLpageSize] = useState(10)
-    let [lsearch, setLsearch]     = useState('')
-    let [lsort, setLsort]         = useState('title')
-    let [lorder, setLorder]       = useState(':asc');
+function DeleteMeetupList() {
+    const dispatch                              = useDispatch()
+    let [lcurrent, setLcurrent]                 = useState(1)
+    let [lpageSize, setLpageSize]               = useState(10)
+    let [lsearch, setLsearch]                   = useState('')
+    let [lsort, setLsort]                       = useState('title')
+    let [lorder, setLorder]                     = useState(':asc');
+    let [openPageSizeList, setOpenPageSizeList] = useState(false);
+    let [openSortList, setOpenSortList]         = useState(false);
+
     useEffect(() => {
                   retr()
               },
-              [])
+              [
+                  lpageSize,
+                  lcurrent,
+                  lsearch,
+                  lsort,
+                  lorder
+              ])
 
     function retr() {
         dispatch(retrieveMeetups({
@@ -50,98 +69,145 @@ function UpdateMeetupList() {
                                  }))
     }
 
-
-    function handleSortMenuClick(e) {
-        setLsort(e.key)
-        retr();
+    function ChangeSortOrder() {
+        lorder === ':asc' ? setLorder(':desc') : setLorder(':asc')
     }
 
-    function onShowPageSizeChange(current,
-                                  pageSize) {
-        setLpageSize(pageSize)
-        setLcurrent(current)
-        retr()
-    }
+
+    const meetups = useSelector((state => state.meetupsReducer))
+
+
+    const [selected, setSelected] = useState(0);
 
     function selects(index,
                      item) {
         setSelected(index)
         dispatch(selectMeetup(item))
-    }
-
-    function handleButtonClick(e) {
-        if (lorder === ':asc') {
-            setLorder(':desc')
-            retr();
-        }
-        else {
-            setLorder(':asc')
-            retr();
-        }
 
     }
 
-    const onSearch                = value => {
-
-        setLsearch(value)
-        retr()
-    }
-    const menu                    = (<Menu onClick={handleSortMenuClick}>
-        <Menu.Item key="title"
-                   icon={<UserOutlined/>}>
-            Title
-        </Menu.Item>
-        <Menu.Item key="address"
-                   icon={<UserOutlined/>}>
-            Address
-        </Menu.Item>
-    </Menu>);
-    const meetups                 = useSelector((state => state.meetupsReducer))
-    const [selected, setSelected] = useState(0);
     return (
-        <Row gutter={[
-            24,
-            24
-        ]}>
-            <Col span={20}> <Search placeholder="input search text"
-                                    allowClear
-                                    onSearch={onSearch}/></Col>
-            <Col span={4}>
-                <Dropdown.Button onClick={handleButtonClick}
-                                 overlay={menu}>
-                    Sort By
-                </Dropdown.Button>
-            </Col>
-            {meetups.meetups.map((meetup,
-                                  index) => (
-                <Col md={12}
-                     xs={24}
-                     onClick={() => selects(index,
-                                            meetup)}
-                     className={`gutter-row banner ${selected === index ? "gutter-row delete-active" : ""}`}
-                     key={meetup.id}
-                ><MeetupItem
 
-                    id={meetup.id}
-                    image={meetup.attributes.image}
-                    title={meetup.attributes.title}
-                    address={meetup.attributes.address}
+        <Box>
+            <Box sx={{p: 1}}><Grid
+                justifyContent="space-between"
+                container>
+                <Grid xs={10}
+                      item>
+                    <TextField fullWidth
+                               id="outlined-basic"
+                               label="Search"
+                               variant="outlined"
+                               onChange={(event => {
+                                   setLsearch(event.target.value)
+                               })}/>
+                </Grid>
+                <Grid item>
+                    <ButtonGroup style={{height: '100%'}}
 
-                /></Col>
-            ))}
+                                 variant="contained"
+                                 aria-label="outlined primary button group">
+                        <Button fullWidth
+                                style={{textTransform: 'capitalize'}}
+                                onClick={() => {
+                                    setOpenSortList(!openSortList)
+                                }}>{lsort} </Button>
+                        <Button
+                            onClick={ChangeSortOrder}>{lorder === ':asc'
+                                                       &&
+                                                       <ArrowDropUpOutlined/>}
+                            {lorder === ':desc' &&
+                             <ArrowDropDownOutlined/>}
+                        </Button>
+                    </ButtonGroup>
+                    <Box sx={{
+                        position: "absolute",
+                        zIndex  : '100'
+                    }}><Collapse mountOnEnter
+                                 in={openSortList}>
+                        <List sx={{
+                            width  : '100%',
+                            bgcolor: 'background.paper'
+                        }}>
+                            <ListItemButton onClick={() => {
+                                setLsort('title');
+                                setOpenSortList(false)
+                            }}>
+                                <ListItemText primary="Title"/>
+                            </ListItemButton>
+                            <ListItemButton onClick={() => {
+                                setLsort('address')
+                                setOpenSortList(false)
+                            }}>
+                                <ListItemText primary="Address"/>
+                            </ListItemButton>
+                        </List>
+                    </Collapse></Box>
+                </Grid>
+            </Grid></Box>
+            <Box sx={{p: 1}}><Grid container
+                                   spacing={2}>
 
-            <Col span={24}><Pagination defaultCurrent={1}
-                                       defaultPageSize={10}
-                                       showSizeChanger
-                                       current={lcurrent}
-                                       hideOnSinglePage={true}
-                                       showLessItems={true}
-                                       showQuickJumper={true}
-                                       onShowSizeChange={onShowPageSizeChange}
-                                       onChange={onShowPageSizeChange}
-                                       total={meetups.meta.pagination.total}/></Col>
-        </Row>
+                {meetups.meetups.map((meetup,
+                                      index) => (
+                    <Grid xs={3}
+                          item
+                          key={meetup.id}
+                          onClick={() => selects(index,
+                                                 meetup)}
+                    ><MeetupItem
+                        id={meetup.id}
+
+                        className={`${selected === index ? "delete-active" : ""}`}
+                        key={meetup.id}
+                        image={meetup.attributes.image}
+                        title={meetup.attributes.title}
+                        address={meetup.attributes.address}
+
+                    /></Grid>
+                ))}
+                <Grid xs={10}
+                      item>
+                    <Pagination variant="outlined"
+                                color="primary"
+                                page={lcurrent}
+                                count={Math.ceil(meetups.meta.pagination.total / lpageSize)}
+                                onChange={(e,
+                                           c) => {
+                                    setLcurrent(c)
+                                }}/>
+                </Grid>
+                <Grid xs={2}>
+                    <FormControl sx={{
+                        m       : 1,
+                        minWidth: 120
+                    }}>
+                        <InputLabel id="demo-controlled-open-select-label">Page Size</InputLabel>
+                        <Select
+                            labelId="demo-controlled-open-select-label"
+                            id="demo-controlled-open-select"
+                            open={openPageSizeList}
+                            onClose={() => {
+                                setOpenPageSizeList(false)
+                            }}
+                            onOpen={() => {
+                                setOpenPageSizeList(true)
+                            }}
+                            value={lpageSize}
+                            label="Page Size"
+                            onChange={(event) => {
+                                setLpageSize(event.target.value)
+                            }}>
+                            {Array.from(Array(5)
+                                            .keys())
+                                  .map(e => {
+                                      return <MenuItem value={e * 10}>{e * 10}</MenuItem>
+                                  })}
+                        </Select>
+                    </FormControl>
+                </Grid>
+            </Grid></Box></Box>
     );
 }
 
-export default UpdateMeetupList;
+export default DeleteMeetupList;

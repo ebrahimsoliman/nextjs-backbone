@@ -1,56 +1,104 @@
-import {
-    Button,
-    Form
-}                     from 'antd';
+/*`import {
+ Button,
+ Form,
+ Input
+ }                     from 'antd';*/
 import {
     useDispatch,
     useSelector
 }                     from "react-redux";
 import {useEffect}    from "react";
+import {useRouter}    from "next/router";
+import {useForm}      from "react-hook-form";
+import {
+    Box,
+    Button,
+    ButtonGroup,
+    Grid,
+    TextField
+}                     from "@mui/material";
 import {deleteMeetup} from "../../../store/modules/meetups/actions";
 
-function DeleteMeetupForm() {
-
-    const meetup = useSelector((state => state.meetupsReducer.meetup))
-
-    const [form] = Form.useForm();
-
+function DeleteMeetupForm(props) {
+    const form     = useForm();
+    const router   = useRouter()
+    const meetup   = useSelector((state => state.meetupsReducer.meetup))
     const dispatch = useDispatch()
+    const onReset  = () => {
+        form.reset();
+    };
+    const onFill   = () => {
+
+        let formval = {
+            title      : meetup.attributes.title,
+            image      : meetup.attributes.image,
+            address    : meetup.attributes.address,
+            description: meetup.attributes.description,
+        }
+        for (const key in
+            formval) {
+            form.setValue(key,
+                          formval[key]);
+
+        }
+
+    };
+    useEffect(() => {
+        onFill()
+    })
 
     function submitHandler() {
         dispatch(deleteMeetup(meetup.id))
     }
 
-    const tailLayout = {
-        wrapperCol: {
-            offset: 8,
-            span  : 16
-        },
-    };
-
     return (
-        <Form form={form}
-              name="basic"
-              style={{marginTop: 20}}
-              labelCol={{span: 4}}
-              wrapperCol={{span: 16}}
-              initialValues={{remember: true}}
-              onFinish={submitHandler}
-              autoComplete="off">
+        <Box>
+            <form>
+                <Grid container
+                      spacing={2}>
+                    <Grid item
+                          xs={10}><TextField fullWidth {...form.register('title')}
+                                             id="standard-basic"
+                                             label="Title"
+                                             variant="standard"/>
+                    </Grid>
+                    <Grid item
+                          xs={10}>
+                        <TextField fullWidth {...form.register('image')}
+                                   id="standard-basic"
+                                   label="Image"
+                                   variant="standard"/>
+                    </Grid>
+                    <Grid item
+                          xs={10}>
+                        <TextField fullWidth {...form.register('address')}
+                                   id="standard-basic"
+                                   label="Address"
+                                   variant="standard"/>
+                    </Grid>
+                    <Grid item
+                          xs={10}>
+                        <TextField fullWidth {...form.register('description')}
+                                   id="standard-basic"
+                                   label="Description"
+                                   multiline
+                                   variant="standard"/>
+                    </Grid>
+                    <Grid item
+                          xs={10}>
+                        <ButtonGroup><Button onClick={() => {
+                            onFill();
+                        }}>Fill</Button>
 
-            <Form.Item {...tailLayout}>
-                <Button type="primary"
-                        htmlType="submit">
-                    Submit
-                </Button>
+                            <Button onClick={() => {
+                                onReset();
+                            }}>Reset</Button>
 
-
-            </Form.Item>
-
-            <div>
-
-            </div>
-        </Form>
+                            <Button onClick={() => {
+                                submitHandler();
+                            }}>Submit</Button></ButtonGroup></Grid> </Grid>
+            </form>
+        </Box>
     );
 }
 
