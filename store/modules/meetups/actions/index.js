@@ -43,18 +43,18 @@ export const createMeetup = (data) => async (dispatch) => {
                                    });
                           dispatch(retrieveMeetups())
                           /*notification['success']({
-                                                      message    : 'Meetup Created Successfully',
-                                                      description: `Meetup has been Created successfully`,
-                                                      duration   : 0
-                                                  });*/
+                           message    : 'Meetup Created Successfully',
+                           description: `Meetup has been Created successfully`,
+                           duration   : 0
+                           });*/
                       })
                       .catch(err => {
                           console.log(err.message)
-                          notification['error']({
-                                                    message    : err.response.data.error.details.errors[0].path[0],
-                                                    description: err.response.data.error.message,
-                                                    duration   : 0
-                                                });
+                          /* notification['error']({
+                           message    : err.response.data.error.details.errors[0].path[0],
+                           description: err.response.data.error.message,
+                           duration   : 0
+                           });*/
                       });
 
 
@@ -75,18 +75,18 @@ export const updateMeetup = (id,
                      type   : UPDATE_MEETUP,
                      payload: ret.data,
                  });
-       /* notification['success']({
-                                    message    : 'Meetup Updated Successfully',
-                                    description: `Meetup has been Updated successfully`,
-                                    duration   : 0
-                                });*/
+        /* notification['success']({
+         message    : 'Meetup Updated Successfully',
+         description: `Meetup has been Updated successfully`,
+         duration   : 0
+         });*/
     }
     catch (err) {
-      /*  notification['error']({
-                                  message    : err.response.data.error.details.errors[0].path[0],
-                                  description: err.response.data.error.message,
-                                  duration   : 0
-                              });*/
+        /*  notification['error']({
+         message    : err.response.data.error.details.errors[0].path[0],
+         description: err.response.data.error.message,
+         duration   : 0
+         });*/
     }
 };
 
@@ -107,18 +107,18 @@ export const deleteMeetup = (id) => async (dispatch) => {
         ios.emit('meetupsChanged',
                  {})
         /*notification['success']({
-                                    message    : 'Meetup Deleted Successfully',
-                                    description: `Meetup has been deleted successfully`,
-                                    duration   : 0
-                                });*/
+         message    : 'Meetup Deleted Successfully',
+         description: `Meetup has been deleted successfully`,
+         duration   : 0
+         });*/
         dispatch(retrieveMeetups())
     }
     catch (err) {
-       /* notification['error']({
-                                  message    : err.response.data.error.details.errors[0].path[0],
-                                  description: err.response.data.error.message,
-                                  duration   : 0
-                              });*/
+        /* notification['error']({
+         message    : err.response.data.error.details.errors[0].path[0],
+         description: err.response.data.error.message,
+         duration   : 0
+         });*/
     }
 };
 

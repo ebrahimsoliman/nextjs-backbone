@@ -51,7 +51,8 @@ import {
     RestorePageOutlined,
     SpeedOutlined,
     SyncOutlined
-}                       from "@mui/icons-material";
+}               from "@mui/icons-material";
+import SnackBar from "../components/feedbacks/snackbar";
 
 const drawerWidth = 240;
 
@@ -188,6 +189,7 @@ export default function MyApp(
 
     return (<Provider store={store}>
             <Box sx={{display: 'flex'}}>
+                <SnackBar/>
                 <CssBaseline/>
                 <AppBar position="fixed"
                         open={openMenu}>
