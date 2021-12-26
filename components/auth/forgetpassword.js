@@ -1,94 +1,76 @@
 import React, {useEffect} from 'react';
-import {
-    Button,
-    Form,
-    Input
-}                         from "antd";
-import {useRouter}        from "next/router";
-import {
-    useDispatch,
-    useSelector
-}                         from "react-redux";
-import {forgetPassword}   from "../../store/modules/authentication/actions";
+
+import {useRouter} from "next/router";
+import {useDispatch, useSelector} from "react-redux";
+import {forgetPassword} from "../../store/modules/authentication/actions";
+import {useForm} from "react-hook-form";
+import {Box, Button, ButtonGroup, Grid, TextField} from "@mui/material";
+
 
 function Forgetpassword() {
-    const user = useSelector((state => state.authenticationReducer.user))
+    const form = useForm();
+    const router = useRouter()
+    const dispatch = useDispatch()
+    const onReset = () => {
+        form.reset();
+    };
+    const onFill = () => {
+        let formval = {
 
+            email: "ebrahimahmed97090@gmail.com",
+
+        }
+        for (const key in
+            formval) {
+            form.setValue(key,
+                formval[key]);
+
+        }
+    };
     useEffect(() => {
         if (user) {
             router.push('/')
         }
     })
 
-    const [form]   = Form.useForm();
-    const router   = useRouter()
-    const dispatch = useDispatch()
+    const user = useSelector((state => state.authenticationReducer.user))
 
-    function submitHandler(values) {
+    function onSubmit(values) {
         dispatch(forgetPassword({
-                                    email: values
-                                        .email
-                                }))
+            email: form.getValues().email
+        }))
     }
 
-    const tailLayout = {
-        wrapperCol: {
-            offset: 8,
-            span  : 16
-        },
-    };
-    const onReset    = () => {
-        form.resetFields();
-    };
-    const onFill     = () => {
-        form.setFieldsValue({
-                                email: "ebrahimahmed97090@gmail.com",
-                            });
-    };
     if (!user) {
         return (
-            <Form form={form}
-                  name="basic"
-                  labelCol={{span: 4}}
-                  wrapperCol={{span: 16}}
-                  initialValues={{remember: true}}
-                  onFinish={submitHandler}
-                  autoComplete="off">
-                <Form.Item
-                    label="Email Or Username"
-                    name="email"
-                    rules={[
-                        {
-                            required: true,
-                            message : 'Please Enter Email Address Or Username'
-                        }
-                    ]}
-                >
-                    <Input/>
-                </Form.Item>
+            <Box>
+                <form>
+                    <Grid container
+                          spacing={2}>
 
+                        <Grid item
+                              xs={10}>
+                            <TextField fullWidth {...form.register('email')}
+                                       id="standard-basic"
+                                       label="Email"
+                                       variant="standard"/>
+                        </Grid>
+                        <Grid item
+                              xs={10}>
+                            <ButtonGroup>
+                                <Button onClick={() => {
+                                    onFill();
+                                }}>Fill</Button>
 
-                <Form.Item {...tailLayout}>
-                    <Button type="primary"
-                            htmlType="submit">
-                        Submit
-                    </Button>
-                    <Button htmlType="button"
-                            onClick={onReset}>
-                        Reset
-                    </Button>
-                    <Button type="link"
-                            htmlType="button"
-                            onClick={onFill}>
-                        Fill form
-                    </Button>
-                </Form.Item>
+                                <Button onClick={() => {
+                                    onReset();
+                                }}>Reset</Button>
 
-                <div>
-
-                </div>
-            </Form>
-        );
+                                <Button onClick={() => {
+                                    onSubmit();
+                                }}>Submit</Button></ButtonGroup></Grid> </Grid>
+                </form>
+            </Box>);
     }
     if (user) {
         return (<p>nothing to do here</p>)

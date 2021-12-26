@@ -1,116 +1,85 @@
 import React, {useEffect} from 'react';
-import {
-    Button,
-    Form,
-    Input
-}                         from "antd";
-import {useRouter}        from "next/router";
-import {
-    useDispatch,
-    useSelector
-}                         from "react-redux";
-import {resetPassword}    from "../../store/modules/authentication/actions";
-import {
-    EyeInvisibleOutlined,
-    EyeTwoTone
-}                         from "@ant-design/icons";
+
+import {useRouter} from "next/router";
+import {useDispatch, useSelector} from "react-redux";
+import {resetPassword} from "../../store/modules/authentication/actions";
+import {useForm} from "react-hook-form";
+import {Box, Button, ButtonGroup, Grid, TextField} from "@mui/material";
+
 
 function ResetPassword() {
-    const user   = useSelector((state => state.authenticationReducer.user))
+    const form = useForm();
     const router = useRouter()
+    const dispatch = useDispatch()
+    const onReset = () => {
+        form.reset();
+    };
+    const onFill = () => {
+        let formval = {
+
+            password: '654321aA',
+            passwordConfirmation: '654321aA'
+
+        }
+        for (const key in
+            formval) {
+            form.setValue(key,
+                formval[key]);
+
+        }
+    };
     useEffect(() => {
         if (user) {
             router.push('/')
         }
     })
 
-    const [form]   = Form.useForm();
-    const dispatch = useDispatch()
+    const user = useSelector((state => state.authenticationReducer.user))
 
-    function submitHandler(values) {
+    function onSubmit() {
         dispatch(resetPassword({
-                                   code                : router.query.code,
-                                   password            : values.password,
-                                   passwordConfirmation: values.confirmpassword
-                               }))
+            code: router.query.code,
+            password: form.getValues().password,
+            passwordConfirmation: form.getValues().passwordConfirmation
+        }))
     }
 
-    const tailLayout = {
-        wrapperCol: {
-            offset: 8,
-            span  : 16
-        },
-    };
-    const onReset    = () => {
-        form.resetFields();
-    };
-    const onFill     = () => {
-        form.setFieldsValue({
-                                password       : "Aa654321",
-                                confirmpassword: "Aa654321"
-                            });
-    };
     if (!user) {
         return (
-            <Form form={form}
-                  name="basic"
-                  labelCol={{span: 4}}
-                  wrapperCol={{span: 16}}
-                  initialValues={{remember: true}}
-                  onFinish={submitHandler}
-                  autoComplete="off">
-                <Form.Item
-                    label="Password"
-                    name="password"
-                    rules={[
-                        {
-                            required: true,
-                            message : 'Please input your password'
-                        }
-                    ]}
-                >
-                    <Input.Password
-                        placeholder="input password"
-                        iconRender={visible => (visible ? <EyeTwoTone/> : <EyeInvisibleOutlined/>)}
-                    />
-                </Form.Item><Form.Item
-                label="Confirm Password"
-                name="confirmpassword"
-                rules={[
-                    {
-                        required: true,
-                        message : 'Please input your password'
-                    }
-                ]}
-            >
-                <Input.Password
-                    placeholder="input password"
-                    iconRender={visible => (visible ? <EyeTwoTone/> : <EyeInvisibleOutlined/>)}
-                />
-            </Form.Item>
+            <Box>
+                <form>
+                    <Grid container
+                          spacing={2}>
 
+                        <Grid item
+                              xs={10}>
+                            <TextField fullWidth {...form.register('password')}
+                                       id="standard-basic"
+                                       label="Email"
+                                       variant="standard"/>
+                        </Grid><Grid item
+                                     xs={10}>
+                        <TextField fullWidth {...form.register('passwordConfirmation')}
+                                   id="standard-basic"
+                                   label="Email"
+                                   variant="standard"/>
+                    </Grid>
+                        <Grid item
+                              xs={10}>
+                            <ButtonGroup>
+                                <Button onClick={() => {
+                                    onFill();
+                                }}>Fill</Button>
 
-                <Form.Item {...tailLayout}>
-                    <Button type="primary"
-                            htmlType="submit">
-                        Submit
-                    </Button>
-                    <Button htmlType="button"
-                            onClick={onReset}>
-                        Reset
-                    </Button>
-                    <Button type="link"
-                            htmlType="button"
-                            onClick={onFill}>
-                        Fill form
-                    </Button>
-                </Form.Item>
+                                <Button onClick={() => {
+                                    onReset();
+                                }}>Reset</Button>
 
-                <div>
-
-                </div>
-            </Form>
-        );
+                                <Button onClick={() => {
+                                    onSubmit();
+                                }}>Submit</Button></ButtonGroup></Grid> </Grid>
+                </form>
+            </Box>);
     }
     if (user) {
         return (<p>nothing to do here</p>)
@@ -118,3 +87,12 @@ function ResetPassword() {
 }
 
 export default ResetPassword;
+
+
+
+
+
+
+
+
+

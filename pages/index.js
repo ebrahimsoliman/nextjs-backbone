@@ -1,28 +1,15 @@
 import {
-    Fragment,
-    useEffect
+    Fragment
 }                        from "react";
 import Head              from "next/head";
-import {retrieveMeetups} from "../store/modules/meetups/actions";
-import {
-    useDispatch,
-    useSelector
-}                        from "react-redux";
-// import MeetupList         from "../components/meetups/Retrieve/MeetupList";
-// import MeetupsDataService from "../services/meetups.service";
+import MeetupList from "../components/meetups/Retrieve/MeetupList";
+
 
 
 function HomePage(props) {
-    const dispatch = useDispatch()
-    const meetups  = useSelector((state => state.meetupsReducer.meetups))
 
-    useEffect(() => {
-                  dispatch(retrieveMeetups())
-              },
-              []);
     return (
         <Fragment>
-
             <Head>
                 <title>Next Backbone</title>
                 <meta name="title"
@@ -50,7 +37,7 @@ function HomePage(props) {
                 <meta property="twitter:image"
                       content="https://metatags.io/assets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png"/>
             </Head>
-            {/*<MeetupList/>*/}
+            <MeetupList/>
         </Fragment>)
 }
 

@@ -4,7 +4,7 @@ import {Typography} from "@mui/material";
 function Prop(props) {
     return (
         <div>
-            <Typography variant={'body1'}>{props.content}</Typography>
+            <Typography variant={'h2'}>{props.content}</Typography>
         </div>
     );
 }

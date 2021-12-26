@@ -53,6 +53,7 @@ import {
     SyncOutlined
 }               from "@mui/icons-material";
 import SnackBar from "../components/feedbacks/snackbar";
+import Menus from "../components/Layout/menus";
 
 const drawerWidth = 240;
 
@@ -341,50 +342,8 @@ export default function MyApp(
                             {openAuth ? <ExpandLess/> : <ExpandMore/>}
                         </ListItemButton>
                     </List>
-                    <Collapse in={openAuth}
-                              timeout="auto"
-                              unmountOnExit>
-                        <List component="div"
-                              disablePadding>
-                            {[
-                                {
-                                    name: 'Sign up',
-                                    icon: <PersonOutlined/>,
-                                    link: '/authentication/signup'
-                                },
-                                {
-                                    name: 'Login',
-                                    icon: <LoginOutlined/>,
-                                    link: '/authentication/login'
-                                },
-                                {
-                                    name: 'Forget Password',
-                                    icon: <KeyOutlined/>,
-                                    link: '/authentication/forget-password'
-                                },
-                                {
-                                    name: 'Profile',
-                                    icon: <AccountBoxOutlined/>,
-                                    link: '/authentication/profile'
-                                },
-                                {
-                                    name: 'Log Out',
-                                    icon: <LogoutOutlined/>,
-                                    link: ''
-                                },
 
-                            ].map((text) => (
-                                <ListItemButton component="a"
-                                                href={text.link}
-                                                key={text.name}>
-                                    <ListItemIcon>
-                                        {text.icon}
-                                    </ListItemIcon>
-                                    <ListItemText primary={text.name}/>
-                                </ListItemButton>
-                            ))}
-                        </List>
-                    </Collapse>
+                    <Menus openAuth={openAuth}/>
                     <Divider/>
                     <List>
                         <ListItemButton onClick={handleClickExternals}>
@@ -559,6 +518,7 @@ export default function MyApp(
                     <Component {...pageProps} />
                 </Box>
             </Box>
+            <Menus/>
         </Provider>
     );
 }

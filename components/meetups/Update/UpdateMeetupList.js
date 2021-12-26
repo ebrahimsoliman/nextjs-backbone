@@ -1,17 +1,8 @@
 import MeetupItem from '../Retrieve/MeetupItem';
 
-import {
-    useDispatch,
-    useSelector
-} from "react-redux";
-import {
-    useEffect,
-    useState
-} from "react";
-import {
-    retrieveMeetups,
-    selectMeetup
-} from "../../../store/modules/meetups/actions";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
+import {retrieveMeetups, selectMeetup} from "../../../store/modules/meetups/actions";
 import {
     Box,
     Button,
@@ -28,59 +19,57 @@ import {
     Select,
     TextField
 } from "@mui/material";
-import {
-    ArrowDropDownOutlined,
-    ArrowDropUpOutlined
-} from "@mui/icons-material";
+import {ArrowDropDownOutlined, ArrowDropUpOutlined} from "@mui/icons-material";
+
 
 function UpdateMeetupList() {
-    const dispatch                              = useDispatch()
-    let [lcurrent, setLcurrent]                 = useState(1)
-    let [lpageSize, setLpageSize]               = useState(10)
-    let [lsearch, setLsearch]                   = useState('')
-    let [lsort, setLsort]                       = useState('title')
-    let [lorder, setLorder]                     = useState(':asc');
+    const dispatch = useDispatch()
+    let [lcurrent, setLcurrent] = useState(1)
+    let [lpageSize, setLpageSize] = useState(10)
+    let [lsearch, setLsearch] = useState('')
+    let [lsort, setLsort] = useState('title')
+    let [lorder, setLorder] = useState(':asc');
     let [openPageSizeList, setOpenPageSizeList] = useState(false);
-    let [openSortList, setOpenSortList]         = useState(false);
+    let [openSortList, setOpenSortList] = useState(false);
+    let [selected, setSelected] = useState(0);
 
     useEffect(() => {
-                  retr()
-              },
-              [
-                  lpageSize,
-                  lcurrent,
-                  lsearch,
-                  lsort,
-                  lorder
-              ])
+            retr()
+        },
+        [
+            lpageSize,
+            lcurrent,
+            lsearch,
+            lsort,
+            lorder
+        ])
+
 
     function retr() {
         dispatch(retrieveMeetups({
-                                     pagination: {
-                                         page    : lcurrent,
-                                         pageSize: lpageSize
-                                     },
-                                     filters   : {
-                                         title: {
-                                             $containsi: lsearch
-                                         }
-                                     },
-                                     sort      : lsort + lorder
-                                 }))
+            pagination: {
+                page: lcurrent,
+                pageSize: lpageSize
+            },
+            filters: {
+                title: {
+                    $containsi: lsearch
+                }
+            },
+            sort: lsort + lorder
+        }))
     }
 
     function ChangeSortOrder() {
         lorder === ':asc' ? setLorder(':desc') : setLorder(':asc')
     }
 
-
     const meetups = useSelector((state => state.meetupsReducer))
 
-
-    const [selected, setSelected] = useState(0);
-
-    function selects(index,
-                     item) {
+    function selects(
+        index,
+        item
+    ) {
         setSelected(index)
         dispatch(selectMeetup(item))
 
@@ -114,19 +103,19 @@ function UpdateMeetupList() {
                                 }}>{lsort} </Button>
                         <Button
                             onClick={ChangeSortOrder}>{lorder === ':asc'
-                                                       &&
-                                                       <ArrowDropUpOutlined/>}
+                        &&
+                        <ArrowDropUpOutlined/>}
                             {lorder === ':desc' &&
-                             <ArrowDropDownOutlined/>}
+                            <ArrowDropDownOutlined/>}
                         </Button>
                     </ButtonGroup>
                     <Box sx={{
                         position: "absolute",
-                        zIndex  : '100'
+                        zIndex: '100'
                     }}><Collapse mountOnEnter
                                  in={openSortList}>
                         <List sx={{
-                            width  : '100%',
+                            width: '100%',
                             bgcolor: 'background.paper'
                         }}>
                             <ListItemButton onClick={() => {
@@ -148,13 +137,15 @@ function UpdateMeetupList() {
             <Box sx={{p: 1}}><Grid container
                                    spacing={2}>
 
-                {meetups.meetups.map((meetup,
-                                      index) => (
+                {meetups.meetups.map((
+                    meetup,
+                    index
+                ) => (
                     <Grid xs={3}
                           item
                           key={meetup.id}
                           onClick={() => selects(index,
-                                                 meetup)}
+                              meetup)}
                     ><MeetupItem
                         id={meetup.id}
 
@@ -172,14 +163,16 @@ function UpdateMeetupList() {
                                 color="primary"
                                 page={lcurrent}
                                 count={Math.ceil(meetups.meta.pagination.total / lpageSize)}
-                                onChange={(e,
-                                           c) => {
+                                onChange={(
+                                    e,
+                                    c
+                                ) => {
                                     setLcurrent(c)
                                 }}/>
                 </Grid>
                 <Grid xs={2}>
                     <FormControl sx={{
-                        m       : 1,
+                        m: 1,
                         minWidth: 120
                     }}>
                         <InputLabel id="demo-controlled-open-select-label">Page Size</InputLabel>
@@ -199,10 +192,10 @@ function UpdateMeetupList() {
                                 setLpageSize(event.target.value)
                             }}>
                             {Array.from(Array(5)
-                                            .keys())
-                                  .map(e => {
-                                      return <MenuItem value={e * 10}>{e * 10}</MenuItem>
-                                  })}
+                                .keys())
+                                .map(e => {
+                                    return <MenuItem value={e * 10}>{e * 10}</MenuItem>
+                                })}
                         </Select>
                     </FormControl>
                 </Grid>

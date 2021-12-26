@@ -1,53 +1,36 @@
-import {useRouter}    from "next/router";
-import {useDispatch}  from "react-redux";
-import {
-    Box,
-    Button,
-    ButtonGroup,
-    Grid,
-    TextField
-}                     from "@mui/material";
-import {useForm}      from "react-hook-form";
-import {useEffect}    from "react";
+import {useRouter} from "next/router";
+import {useDispatch} from "react-redux";
+import {Box, Button, ButtonGroup, Grid, TextField} from "@mui/material";
+import {useForm} from "react-hook-form";
 import {createMeetup} from "../../../store/modules/meetups/actions";
 
-function NewMeetupForm(props) {
-    const form     = useForm();
-    const router   = useRouter()
-    const dispatch = useDispatch()
-    useEffect(() => {
 
-    })
+function NewMeetupForm(props) {
+    const form = useForm();
+    const router = useRouter()
+    const dispatch = useDispatch()
     const onReset = () => {
         form.reset();
     };
-    const onFill  = () => {
-
+    const onFill = () => {
         let formval = {
-            title  : "Blueholding meetup",
-            image  : "https://source.unsplash.com/user/c_v_r/1600x900",
+            title: "Blueholding meetup",
+            image: "https://source.unsplash.com/user/c_v_r/1600x900",
             address: "113 Galal eldesouky",
-
             description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-         and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`
-            ,
-        }
-        for (const key in
-            formval) {
-            form.setValue(key,
-                          formval[key]);
+         and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`}
+        for (const key in formval) {
+            form.setValue(key, formval[key]);
 
-        }
-
-    };
-    function submitHandler(values) {
+        }};
+    const onSubmit = () => {
         dispatch(createMeetup({
-                                  title      : form.getValues().title,
-                                  image      : form.getValues().image,
-                                  address    : form.getValues().address,
-                                  description: form.getValues().description,
-                              }))}
-
+            title: form.getValues().title,
+            image: form.getValues().image,
+            address: form.getValues().address,
+            description: form.getValues().description,
+        }))
+    }
 
     return (
         <Box>
@@ -84,7 +67,8 @@ function NewMeetupForm(props) {
                     </Grid>
                     <Grid item
                           xs={10}>
-                        <ButtonGroup><Button onClick={() => {
+                        <ButtonGroup>
+                            <Button onClick={() => {
                             onFill();
                         }}>Fill</Button>
 
@@ -93,7 +77,7 @@ function NewMeetupForm(props) {
                             }}>Reset</Button>
 
                             <Button onClick={() => {
-                                submitHandler();
+                                onSubmit();
                             }}>Submit</Button></ButtonGroup></Grid> </Grid>
             </form>
         </Box>

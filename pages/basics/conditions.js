@@ -17,7 +17,6 @@ function Conditions() {
             <Button onClick={f}>toggle</Button>
             {show ? <Typography variant={'body1'}>shown</Typography> : <Typography variant={'body1'}>hidden</Typography>}
              {/*{show && <Typography variant={'body1'}>shown</Typography>}*/}
-
         </div>
 
     );

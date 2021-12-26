@@ -28,7 +28,6 @@ function UpdateMeetupForm(props) {
         form.reset();
     };
     const onFill   = () => {
-
         let formval = {
             title  : meetup.attributes.title,
             image  : meetup.attributes.image,
@@ -39,7 +38,6 @@ function UpdateMeetupForm(props) {
             formval) {
             form.setValue(key,
                           formval[key]);
-
         }
 
     };
@@ -47,7 +45,7 @@ function UpdateMeetupForm(props) {
         onFill()
     })
 
-    function submitHandler() {
+    function onSubmit() {
         dispatch(updateMeetup(meetup.id,
                               {
                                   title      : form.getValues().title,
@@ -100,7 +98,7 @@ function UpdateMeetupForm(props) {
                             }}>Reset</Button>
 
                             <Button onClick={() => {
-                                submitHandler();
+                                onSubmit();
                             }}>Submit</Button></ButtonGroup></Grid> </Grid>
             </form>
         </Box>

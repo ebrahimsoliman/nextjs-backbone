@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import EventEmitChild    from "../../components/event-emit-child";
-import {Typography}      from "@mui/material";
+import EventEmitChild from "../../components/event-emit-child";
+import {Typography} from "@mui/material";
 
 //event emit used to child to parent data communication between components
 function EventEmit() {
     let [dt, setdt] = useState('Data Before Event Emit')
-    const getData   = (data) => {
+
+    function getData(data) {
         setdt(data)
         return data
     }

@@ -1,111 +1,84 @@
 import React, {useEffect} from 'react';
-import {
-    Button,
-    Form,
-    Input
-}                         from "antd";
-import {useRouter}        from "next/router";
-import {
-    useDispatch,
-    useSelector
-}                         from "react-redux";
-import {login}            from "../../store/modules/authentication/actions";
-import {
-    EyeInvisibleOutlined,
-    EyeTwoTone
-}                         from "@ant-design/icons";
+
+import {useRouter} from "next/router";
+import {useDispatch, useSelector} from "react-redux";
+import {login, signUp} from "../../store/modules/authentication/actions";
+import {useForm} from "react-hook-form";
+import {Box, Button, ButtonGroup, Grid, TextField} from "@mui/material";
+
 
 function Logincom() {
-    const user = useSelector((state => state.authenticationReducer.user))
-    const [form]   = Form.useForm();
-    const router   = useRouter()
+    const form = useForm();
+    const router = useRouter()
     const dispatch = useDispatch()
+    const onReset = () => {
+        form.reset();
+    };
+    const onFill = () => {
+        let formval = {
+
+            identifier: "ebrahimahmed97090@gmail.com",
+            password: "Aa123456"
+        }
+        for (const key in
+            formval) {
+            form.setValue(key,
+                formval[key]);
+
+        }
+    };
     useEffect(() => {
         if (user) {
             router.push('/')
         }
     })
-    function submitHandler(values) {
+
+    const user = useSelector((state => state.authenticationReducer.user))
+
+    function onSubmit(values) {
         dispatch(login({
-                           identifier: values.email,
-                           password  : values.password
-                       }))
+            identifier: form.getValues().identifier,
+            password  : form.getValues().password
+        }))
     }
 
-    const tailLayout = {
-        wrapperCol: {
-            offset: 8,
-            span  : 16
-        },
-    };
-    const onReset    = () => {
-        form.resetFields();
-    };
-    const onFill     = () => {
-        form.setFieldsValue({
-                                email   : "ebrahimahmed97090@gmail.com",
-                                password: "Aa123456",
-                            });
-    };
     if (!user) {
         return (
-            <Form form={form}
-                  name="basic"
-                  labelCol={{span: 4}}
-                  wrapperCol={{span: 16}}
-                  initialValues={{remember: true}}
-                  onFinish={submitHandler}
-                  autoComplete="off">
-                <Form.Item
-                    label="Email Or Username"
-                    name="email"
-                    rules={[
-                        {
-                            required: true,
-                            message    : 'Please Enter Email Address Or Username'
-                        }
-                    ]}
-                >
-                    <Input/>
-                </Form.Item>
+            <Box>
+                <form>
+                    <Grid container
+                          spacing={2}>
 
-                <Form.Item
-                    label="Password"
-                    name="password"
-                    rules={[
-                        {
-                            required: true,
-                            message : 'Please input your password'
-                        }
-                    ]}
-                >
-                    <Input.Password
-                        placeholder="input password"
-                        iconRender={visible => (visible ? <EyeTwoTone/> : <EyeInvisibleOutlined/>)}
-                    />
-                </Form.Item>
+                        <Grid item
+                              xs={10}>
+                            <TextField fullWidth {...form.register('identifier')}
+                                       id="standard-basic"
+                                       label="Email"
+                                       variant="standard"/>
+                        </Grid>
+                        <Grid item
+                              xs={10}>
+                            <TextField fullWidth {...form.register('password')}
+                                       id="standard-basic"
+                                       label="Password"
+                                       variant="standard"/>
+                        </Grid>
+                        <Grid item
+                              xs={10}>
+                            <ButtonGroup>
+                                <Button onClick={() => {
+                                    onFill();
+                                }}>Fill</Button>
 
-                <Form.Item {...tailLayout}>
-                    <Button type="primary"
-                            htmlType="submit">
-                        Submit
-                    </Button>
-                    <Button htmlType="button"
-                            onClick={onReset}>
-                        Reset
-                    </Button>
-                    <Button type="link"
-                            htmlType="button"
-                            onClick={onFill}>
-                        Fill form
-                    </Button>
-                </Form.Item>
+                                <Button onClick={() => {
+                                    onReset();
+                                }}>Reset</Button>
 
-                <div>
-
-                </div>
-            </Form>
-        );
+                                <Button onClick={() => {
+                                    onSubmit();
+                                }}>Submit</Button></ButtonGroup></Grid> </Grid>
+                </form>
+            </Box>);
     }
     if (user) {
         return (<p>nothing to do here</p>)
@@ -113,3 +86,8 @@ function Logincom() {
 }
 
 export default Logincom;
+
+
+
+
+

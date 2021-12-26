@@ -1,47 +1,41 @@
-import {
-    CREATE_MEETUP,
-    DELETE_MEETUP,
-    RETRIEVE_MEETUPS,
-    SELECT_MEETUP,
-    UPDATE_MEETUP
-} from "./actions/types";
+import {CREATE_MEETUP, DELETE_MEETUP, RETRIEVE_MEETUPS, SELECT_MEETUP, UPDATE_MEETUP} from "./actions/types";
+
 
 const initialState = {
-    meta   : {
+    meta: {
         pagination: {
-            page     : 0,
-            pageSize : 0,
+            page: 0,
+            pageSize: 0,
             pageCount: 0,
-            total    : 0
+            total: 0
         }
     },
     meetups: [],
-    meetup : {
-        id        : null,
+    meetup: {
+        id: null,
         attributes: {
-            title      : '',
-            image      : '',
-            address    : '',
+            title: '',
+            image: '',
+            address: '',
             description: '',
         }
     }
 };
 
-
-function meetupReducer(meetupstate = initialState,
-                       action) {
+function meetupReducer(
+    meetupstate = initialState,
+    action
+) {
     const {
-              type,
-              payload
-          } = action;
-
+        type,
+        payload
+    } = action;
     switch (type) {
-
         case RETRIEVE_MEETUPS:
             return {
                 ...meetupstate,
                 meetups: payload.meetups,
-                meta   : payload.meta
+                meta: payload.meta
             };
 
         case CREATE_MEETUP:
