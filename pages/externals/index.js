@@ -1,12 +1,10 @@
-import React from 'react';
+import React      from 'react';
+import MeetupList from "../../components/meetups/Retrieve/MeetupList";
 
 
 function Index() {
     return (
-        <div>
-
-        </div>
-    );
+<MeetupList/>);
 }
 
 export default Index;

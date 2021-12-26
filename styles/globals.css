@@ -156,8 +156,8 @@ h6 {
 .odometer {
     font-size: 50px;
 }
-
-img {
+img{
+    display: block;
     width: 100%;
     height: auto;
 }

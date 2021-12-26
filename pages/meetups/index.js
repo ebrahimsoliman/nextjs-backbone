@@ -1,43 +1,30 @@
-import React, {useEffect} from 'react';
-import MeetupList         from "../../components/meetups/Retrieve/MeetupList";
-import {
-    useDispatch,
-    useSelector
-}                         from "react-redux";
-import {retrieveMeetups}  from "../../store/modules/meetups/actions";
+import React      from 'react';
+import MeetupList from "../../components/meetups/Retrieve/MeetupList";
 
 function Index() {
-    const dispatch = useDispatch()
-    const meetups  = useSelector((state => state.meetupsReducer.meetups))
+    return (<MeetupList/>
 
-    useEffect(() => {
-                  dispatch(retrieveMeetups())
-              },
-              []);
-    return (
-        <div>
-            <MeetupList/>
-        </div>
     );
 }
+
 /*
-export async function getServerSideProps() {
-    //fetch
-    let res
-    await axios.get('http://localhost:1337/api/meetups')
-               .then(response => {
+ export async function getServerSideProps() {
+ //fetch
+ let res
+ await axios.get('http://localhost:1337/api/meetups')
+ .then(response => {
 
-                   res = response.data.data
+ res = response.data.data
 
-               })
-               .catch((error) => {
+ })
+ .catch((error) => {
 
-               });
-    return {
-        props: {
-            meetups: res
-        },
-    }
-}*/
+ });
+ return {
+ props: {
+ meetups: res
+ },
+ }
+ }*/
 
 export default Index;
