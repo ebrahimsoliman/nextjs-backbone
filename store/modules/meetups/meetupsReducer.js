@@ -1,22 +1,31 @@
-import {CREATE_MEETUP, DELETE_MEETUP, RETRIEVE_MEETUPS, SELECT_MEETUP, UPDATE_MEETUP} from "./actions/types";
+import {
+    RETRIEVE_MEETUPS,
+    SELECT_MEETUP
+} from "./actions/types";
 
 
 const initialState = {
-    meta: {
+    meta   : {
         pagination: {
-            page: 0,
-            pageSize: 0,
+            page     : 0,
+            pageSize : 0,
             pageCount: 0,
-            total: 0
-        }
+            total    : 0
+        },
+        filters   : {
+            title: {
+                $containsi: ''
+            }
+        },
+        sort      : 'title:asc'
     },
     meetups: [],
-    meetup: {
-        id: null,
+    meetup : {
+        id        : null,
         attributes: {
-            title: '',
-            image: '',
-            address: '',
+            title      : '',
+            image      : '',
+            address    : '',
             description: '',
         }
     }
@@ -27,37 +36,22 @@ function meetupReducer(
     action
 ) {
     const {
-        type,
-        payload
-    } = action;
+              type,
+              payload
+          } = action;
     switch (type) {
         case RETRIEVE_MEETUPS:
             return {
                 ...meetupstate,
                 meetups: payload.meetups,
-                meta: payload.meta
+                meta   : payload.meta
             };
 
-        case CREATE_MEETUP:
-            return {
-                ...meetupstate,
-            };
 
         case SELECT_MEETUP:
             return {
                 ...meetupstate,
                 meetup: payload
-            };
-
-        case UPDATE_MEETUP:
-            return {
-                meetups: payload,
-                ...meetupstate
-            };
-
-        case DELETE_MEETUP:
-            return {
-                ...meetupstate
             };
 
         default:
