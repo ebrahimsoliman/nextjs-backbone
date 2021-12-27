@@ -11,22 +11,37 @@ const state                  = root.getState(state => state)
 const qs                     = require('qs');
 const ios                    = socketIOClient(process.env.NEXT_PUBLIC_BACK_APP_URL)
 export const retrieveMeetups = (params) => async (dispatch) => {
-    try {
+           try {
 
-        let meta  = state.meetupsReducer.meta
-        const res = await MeetupsDataService.retrieveMeetups(qs.stringify(params));
-        dispatch({
-                     type   : RETRIEVE_MEETUPS,
-                     payload: {
-                         meetups: res.data.data,
-                         meta   : res.data.meta
-                     }
-                 })
-    }
-    catch (err) {
-        console.log(err);
-    }
-};
+               let meta  = state.meetupsReducer.meta
+               const res = await MeetupsDataService.retrieveMeetups(qs.stringify(params));
+               dispatch({
+                            type   : RETRIEVE_MEETUPS,
+                            payload: {
+                                meetups: res.data.data,
+                                meta   : {
+                                    ...meta,
+                                    pagination: {
+                                        ...meta.pagination,
+                                        total: res.data.meta.pagination.total
+                                    }
+                                }
+                            } || {
+                                ...params,
+                                pagination: {
+                                    ...params.pagination,
+                                    total: res.data.meta.pagination.total
+                                }
+                            }
+                        }
+               )
+           }
+           catch
+               (err) {
+               console.log(err);
+           }
+       }
+;
 export const createMeetup    = (data) => async (dispatch,
                                                 state) => {
     try {
