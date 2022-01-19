@@ -3,13 +3,13 @@ import {
     SELECT_MEETUP
 }                         from "./types";
 import MeetupsDataService from '../../../../services/meetups.service'
-import socketIOClient     from "socket.io-client";
+/*import socketIOClient     from "socket.io-client";*/
 import {snackbar}         from "../../ui/actions";
 import root               from '../../../index';
 
 const state                  = root.getState(state => state)
 const qs                     = require('qs');
-const ios                    = socketIOClient(process.env.NEXT_PUBLIC_BACK_APP_URL)
+// const ios                    = socketIOClient(process.env.NEXT_PUBLIC_BACK_APP_URL)
 export const retrieveMeetups = (params) => async (dispatch) => {
            try {
 
@@ -46,8 +46,8 @@ export const createMeetup    = (data) => async (dispatch,
                                                 state) => {
     try {
         await MeetupsDataService.createMeetup(data)
-        ios.emit('meetupsChanged',
-                 {})
+       /* ios.emit('meetupsChanged',
+                 {})*/
         dispatch(snackbar({
                               show    : true,
                               message : 'Meetup Created Successfully',
@@ -69,8 +69,8 @@ export const updateMeetup    = (id,
 ) => async (dispatch,
             state) => {
     try {
-        ios.emit('meetupsChanged',
-                 {})
+       /* ios.emit('meetupsChanged',
+                 {})*/
         const res = MeetupsDataService.updateMeetup({
                                                         id,
                                                         data
@@ -109,8 +109,8 @@ export const deleteMeetup = (id) => async (
 ) => {
     try {
         await MeetupsDataService.deleteMeetup(id);
-        ios.emit('meetupsChanged',
-                 {})
+    /*    ios.emit('meetupsChanged',
+                 {})*/
         dispatch(snackbar({
                               show    : true,
                               message : 'Meetup Deleted Successfully',

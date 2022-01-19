@@ -7,7 +7,7 @@ import {
     autologin,
     logout
 }                     from "../../store/modules/authentication/actions";
-import socketIOClient from "socket.io-client";
+// import socketIOClient from "socket.io-client";
 import {retrieveMeetups}  from "../../store/modules/meetups/actions";
 import {
     Collapse,
@@ -29,12 +29,11 @@ function Menus(props) {
     const user     = useSelector((state => state.authenticationReducer.user));
     const dispatch = useDispatch()
     useEffect(() => {
-                  const ios = socketIOClient(process.env.NEXT_PUBLIC_BACK_APP_URL)
-                  ios.on('fresh',
+                  // const ios = socketIOClient(process.env.NEXT_PUBLIC_BACK_APP_URL)
+                /*  ios.on('fresh',
                          e => {
-                             console.log('meetupsChanged')
                              dispatch(retrieveMeetups())
-                         })
+                         })*/
                   dispatch(autologin())
               },
               [])
