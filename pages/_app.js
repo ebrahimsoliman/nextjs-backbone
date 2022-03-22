@@ -4,6 +4,7 @@ import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 import {Layout}      from 'antd';
 import 'antd/dist/antd.css';
+import "@ant-design/flowchart/dist/index.css";
 import {Provider}    from 'react-redux';
 import store         from '../store/index';
 import NextNProgress from "nextjs-progressbar";
