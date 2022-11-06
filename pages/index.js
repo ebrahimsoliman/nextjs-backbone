@@ -37,7 +37,7 @@ function HomePage(props) {
                 <meta property="og:url"
                       content="https://metatags.io/"/>
                 <meta property="og:title"
-                      content="Blueholding Next Backbone"/>
+                      content="Dlivr.io Next Backbone"/>
                 <meta property="og:description"
                       content="This Is A React/Next.js Backbone For Blue Holding Company"/>
                 <meta property="og:image"
@@ -48,7 +48,7 @@ function HomePage(props) {
                 <meta property="twitter:url"
                       content="https://metatags.io/"/>
                 <meta property="twitter:title"
-                      content="Blueholding Next Backbone"/>
+                      content="Dlivr.io Next Backbone"/>
                 <meta property="twitter:description"
                       content="This Is A React/Next.js Backbone For Blue Holding Company"/>
                 <meta property="twitter:image"
